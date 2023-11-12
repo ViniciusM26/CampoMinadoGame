@@ -18,7 +18,7 @@ public class Jogo {
 	 }
 
 	 public Jogo(int tamanho, int bandeiras, int bombas) {
-		 this.tabuleiro = new Tabuleiro(tamanho, bandeiras, bombas);
+		 this.tabuleiro = new Tabuleiro();
 	     this.tempo = 0;
 	     this.funcionamentoJogo = true;
 	 }
