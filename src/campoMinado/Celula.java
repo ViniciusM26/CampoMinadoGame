@@ -4,15 +4,27 @@ import java.util.ArrayList;
 
 public class Celula {
 	
-	private boolean bomba;
 	private boolean revelado;
 	private boolean bandeira ;
 	private boolean clicado;
-	
+	private byte contagemBombas;
+
+	public boolean getrevelado (){
+		return this.revelado;
+	}
+	public boolean getbandeira (){
+		return this.bandeira;
+	}
+	public boolean getclicado (){
+		return this.clicado;
+	}
+	public byte getcontagemBombas (){
+		return this.contagemBombas;
+	}
+
 	ArrayList<Celula> vizinhos;
 	
 	public Celula(){
-		this.bomba = false;
 		this.revelado = false;
 		this.bandeira = false;
 		this.clicado = false;
@@ -23,19 +35,6 @@ public class Celula {
 		this.vizinhos.add(e);
 	}
 	
-	// Método de adicionar bombas no tabuleiro
-	// Caso a celula já tenha uma bomba, ele retorna false
-	
-	public boolean bomba() {
-		if (!this.bomba) {
-			this.bomba = true;
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
 	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeira
 	
 	public boolean marcarBandeira() {
@@ -44,6 +43,8 @@ public class Celula {
 	}
 	
 	// -1 --> Bomba, 0 --> Vazio e n --> num de bombas nos vizinhos
+	//Verificar como applicar na ideia de subClasse
+	/*
 	public int clicar(){
 		this.clicado = true;
 		if(this.bomba) {
@@ -53,7 +54,10 @@ public class Celula {
 			return numMinasNosVizinhos();
 		}
 	}	
-	
+	 */
+
+	//Ver como aplicar tirando a ideia de bomba da celula e levando em consideração apenas o tipo
+	/*
 	public int numMinasNosVizinhos(){
 		int n = 0;
 		for (Celula e : this.vizinhos) {
@@ -61,24 +65,15 @@ public class Celula {
 		}
 		return n;
 	}
-	
+	 */
+
 	public void reset() {
-		this.bomba = false;
 		this.revelado = false;
 		this.bandeira = false;
 		this.clicado = false;
 	}
 	
-	public String toString() {
-		if(this.bomba)
-			return "-1";			
-		return "+" + this.numMinasNosVizinhos();	
-	}
-	
-	
-	private int contagemBombas;
-	
-	public void contarBombas(int p) {
+	public void contarBombas(byte p) {
 		this.contagemBombas = p;
 	}
 	
@@ -94,18 +89,3 @@ public class Celula {
 	}
 	
 }
-
-/*
-public Celula(boolean p1) {
-
-	this.bomba = p1;
-	this.temBandeira = false;
-	this.selecionado = false;
-}
-
-public Celula() {
-	this.bomba = false;
-	this.temBandeira = false;
-	this.selecionado = false;		
-}
-*/

@@ -4,15 +4,22 @@ import java.util.Random;
 
 public class Tabuleiro {
 	
-	private Celula [][] matriz;
+	private Celula [][] matriz; //Duvida a respeito das subClasses
 	private int tamanho = 6;
 	private int bombas = 5;
+
+	 public int getTamanho(){
+		return this.tamanho;
+	 }
+	 public int getBombas(){
+		return this.bombas;
+	 }
 
 	public Tabuleiro() {
 	    matriz = new Celula[tamanho][tamanho];
 	    for (int i = 0; i < tamanho; i++) {
 	        for (int j = 0; j < tamanho; j++) {
-	            matriz[i][j] = new Celula();
+	            matriz[i][j] = new Celula(); // A separação das bombas deve ocorrer antes
 	        }
 	    }
 
@@ -35,7 +42,8 @@ public class Tabuleiro {
 	        }
 	    }
 	}
-	
+	//ver como mudar para herança
+	/*
 	public void sortearBombas() {
 		int n = bombas;
 		Random rand = new Random();
@@ -48,7 +56,7 @@ public class Tabuleiro {
 			}
 		}
 	}
-	
+	 */
 	public String toString() {
 		String str = "";
 		
