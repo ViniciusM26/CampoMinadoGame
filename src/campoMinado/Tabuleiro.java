@@ -19,7 +19,7 @@ public class Tabuleiro {
 	    matriz = new Celula[tamanho][tamanho];
 	    for (int i = 0; i < tamanho; i++) {
 	        for (int j = 0; j < tamanho; j++) {
-	            matriz[i][j] = new Celula(); // A separação das bombas deve ocorrer antes
+	            matriz[i][j] = new CelulaVazia(); // A separação das bombas deve ocorrer antes
 	        }
 	    }
 
@@ -42,6 +42,54 @@ public class Tabuleiro {
 	        }
 	    }
 	}
+
+	public String toString() {
+		String str = "";
+		
+		for (int i = 0; i < tamanho; i++) {
+			for (int j = 0; j < tamanho; j++) {
+				str += matriz[i][j] + " ";				
+			}
+			str += "\n";
+		}
+		return str;
+	}	
+
+	public int contagemBombas(int x, int y){
+	int contador = 0;
+	// Percorre em x nas 3 posições
+	for(int i = -1;i < 2;  i++) {
+		//verifica se a soma não será uma posição negativa
+		if (x + i >= 0) {
+			//percorre em y nas 3 posições
+			for (int j = -1; j < 2; j++) {
+				//verifica se a soma não será uma posição negativa
+				if (y + j >= 0) {
+					// verifica se a posição analisada não é a propia celula
+					if(i != 0 || j != 0) {
+						if(matriz[x + i][y + j] instanceof Bomba) {
+							contador++;
+						};
+					}
+				}	
+			}
+		}
+	}
+
+	return contador;
+}
+
+
+	public boolean selecionar(int x, int y){
+		this.matriz[x][y].clicarCelula();
+		if (this.matriz[x][y] instanceof Bomba)
+			return true;
+		else{
+			this.matriz[x][y].setContagemBombas(contagemBombas(x, y));// resolver a questão do acesso as funções
+			return false;
+		}
+	}
+}
 	//ver como mudar para herança
 	/*
 	public void sortearBombas() {
@@ -57,18 +105,6 @@ public class Tabuleiro {
 		}
 	}
 	 */
-	public String toString() {
-		String str = "";
-		
-		for (int i = 0; i < tamanho; i++) {
-			for (int j = 0; j < tamanho; j++) {
-				str += matriz[i][j] + " ";				
-			}
-			str += "\n";
-		}
-		return str;
-	}	
-}
 
 /*	
 private int bandeiras;
@@ -132,29 +168,6 @@ public void imprimir() {
     }
 }
 
-public int contagemBombas(int x, int y){
-	int contador = 0;
-	// Percorre em x nas 3 posições
-	for(int i = -1;i < 2;  i++) {
-		//verifica se a soma não será uma posição negativa
-		if (x + i >= 0) {
-			//percorre em y nas 3 posições
-			for (int j = -1; j < 2; j++) {
-				//verifica se a soma não será uma posição negativa
-				if (y + j >= 0) {
-					// verifica se a posição analisada não é a propia celula
-					if(i != 0 || j != 0) {
-						if(matriz[x + i][y + j].bomba()) {
-							contador++;
-						};
-					}
-				}	
-			}
-		}
-	}
-
-	return contador;
-}
 
 public void selecionar() {
 	this.selecionados ++;

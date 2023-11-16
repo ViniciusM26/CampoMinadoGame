@@ -7,7 +7,6 @@ public class Celula {
 	private boolean revelado;
 	private boolean bandeira ;
 	private boolean clicado;
-	private byte contagemBombas;
 
 	public boolean getrevelado (){
 		return this.revelado;
@@ -18,9 +17,6 @@ public class Celula {
 	public boolean getclicado (){
 		return this.clicado;
 	}
-	public byte getcontagemBombas (){
-		return this.contagemBombas;
-	}
 
 	ArrayList<Celula> vizinhos;
 	
@@ -28,7 +24,6 @@ public class Celula {
 		this.revelado = false;
 		this.bandeira = false;
 		this.clicado = false;
-		this.vizinhos = new ArrayList<Celula>();
 	}
 	
 	public void adicionarVizinhos(Celula e) {
@@ -71,14 +66,6 @@ public class Celula {
 		this.revelado = false;
 		this.bandeira = false;
 		this.clicado = false;
-	}
-	
-	public void contarBombas(byte p) {
-		this.contagemBombas = p;
-	}
-	
-	public int contagemBombas() {
-		return this.contagemBombas;
 	}
 	
 	public boolean clicado() {
