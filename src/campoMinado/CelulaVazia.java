@@ -1,12 +1,13 @@
 package campoMinado;
 
 public class CelulaVazia extends Celula {
-    private byte contagemBombas;
+    private int contagemBombas;
 
-    public byte getContagemBombas(){
+    public int getContagemBombas(){
         return this.contagemBombas;
     }
-    public void setcontagemBombas(byte p1){
-        this.contagemBombas = p1; 
+    public void setContagemBombas(int contador){
+        this.contagemBombas = contador; 
     }
+    
 }

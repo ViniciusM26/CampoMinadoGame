@@ -1,41 +1,51 @@
 package campoMinado;
 
-import java.util.ArrayList;
-
 public class Celula {
 	
-	private boolean revelado;
-	private boolean bandeira ;
-	private boolean clicado;
+	protected boolean bandeira;
+	protected boolean clicado;
 
-	public boolean getrevelado (){
-		return this.revelado;
-	}
-	public boolean getbandeira (){
+	public boolean getBandeira (){
 		return this.bandeira;
 	}
-	public boolean getclicado (){
+
+	public boolean getClicado (){
 		return this.clicado;
 	}
 
-	ArrayList<Celula> vizinhos;
-	
+	public void setBandeira(boolean p1){
+		this.bandeira = p1;
+	}
+
+	public void setClicado(boolean p1){
+		this.bandeira = p1;
+	}
+
+	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeira
+	public void selecionarBandeira(){
+		if (this.bandeira == true){
+			this.bandeira = false;
+		}else{
+			this.bandeira = true;
+		}
+	}
+
+	public void clicarCelula(){
+        if (this.bandeira == false || this.clicado == false){
+            this.clicado = true;
+        }
+    }
+
+	public void reset() {
+		this.bandeira = false;
+		this.clicado = false;
+	}
+
 	public Celula(){
-		this.revelado = false;
 		this.bandeira = false;
 		this.clicado = false;
 	}
 	
-	public void adicionarVizinhos(Celula e) {
-		this.vizinhos.add(e);
-	}
-	
-	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeira
-	
-	public boolean marcarBandeira() {
-		this.bandeira = !this.bandeira;
-		return this.bandeira;
-	}
 	
 	// -1 --> Bomba, 0 --> Vazio e n --> num de bombas nos vizinhos
 	//Verificar como applicar na ideia de subClasse
@@ -62,17 +72,25 @@ public class Celula {
 	}
 	 */
 
-	public void reset() {
-		this.revelado = false;
-		this.bandeira = false;
-		this.clicado = false;
-	}
 	
-	public boolean clicado() {
-		return this.clicado;
-	}
-	public void clicarCelula() {
-		this.clicado = true;
-	}
+	
 	
 }
+
+	/*
+	public void colocarBanderia (){
+		this.bandeira = bandeira;
+	}
+	public void tirarBanderia (){
+		this.bandeira = bandeira;
+	}
+	public void clicar (){
+		this.clicado = clicado;
+	}
+	 */
+	/*
+	public void adicionarVizinhos(Celula e) {
+		this.vizinhos.add(e);
+	}
+	ArrayList<Celula> vizinhos; // ajeitar
+	 */

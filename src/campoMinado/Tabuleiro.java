@@ -5,8 +5,8 @@ import java.util.Random;
 public class Tabuleiro {
 	
 	private Celula [][] matriz; //Duvida a respeito das subClasses
-	private int tamanho = 6;
-	private int bombas = 5;
+	private int tamanho ;
+	private int bombas;
 
 	 public int getTamanho(){
 		return this.tamanho;
@@ -15,48 +15,24 @@ public class Tabuleiro {
 		return this.bombas;
 	 }
 
-	public Tabuleiro() {
-	    matriz = new Celula[tamanho][tamanho];
-	    for (int i = 0; i < tamanho; i++) {
-	        for (int j = 0; j < tamanho; j++) {
-	            matriz[i][j] = new CelulaVazia(); // A separação das bombas deve ocorrer antes
-	        }
-	    }
-
-	    for (int i = 0; i < tamanho; i++) {
-	        for (int j = 0; j < tamanho; j++) {
-	            if (i > 0) {
-	                matriz[i][j].adicionarVizinhos(matriz[i - 1][j]);
-	                if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i - 1][j - 1]);
-	                if (j < tamanho - 1) matriz[i][j].adicionarVizinhos(matriz[i - 1][j + 1]);
-	            }
-
-	            if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i][j - 1]);
-	            if (j < tamanho - 1) matriz[i][j].adicionarVizinhos(matriz[i][j + 1]);
-
-	            if (i < tamanho - 1) {
-	                if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i + 1][j - 1]);
-	                matriz[i][j].adicionarVizinhos(matriz[i + 1][j]);
-	                if (j < tamanho - 1) matriz[i][j].adicionarVizinhos(matriz[i + 1][j + 1]);
-	            }
-	        }
-	    }
-	}
-
 	public String toString() {
 		String str = "";
 		
 		for (int i = 0; i < tamanho; i++) {
 			for (int j = 0; j < tamanho; j++) {
-				str += matriz[i][j] + " ";				
+				if (matriz[i][j] instanceof Bomba)
+				str += "# ";
+				else 
+				str += "* ";
 			}
 			str += "\n";
 		}
 		return str;
 	}	
 
-	public int contagemBombas(int x, int y){
+	public void contagemBombas(int x, int y){
 	int contador = 0;
+	CelulaVazia celulaVazia = (CelulaVazia)matriz[x][y];
 	// Percorre em x nas 3 posições
 	for(int i = -1;i < 2;  i++) {
 		//verifica se a soma não será uma posição negativa
@@ -75,65 +51,67 @@ public class Tabuleiro {
 			}
 		}
 	}
-
-	return contador;
+	celulaVazia.setContagemBombas(contador);
 }
-
 
 	public boolean selecionar(int x, int y){
 		this.matriz[x][y].clicarCelula();
-		if (this.matriz[x][y] instanceof Bomba)
+		if (this.matriz[x][y] instanceof Bomba)// verifica se é bomba
 			return true;
-		else{
-			this.matriz[x][y].setContagemBombas(contagemBombas(x, y));// resolver a questão do acesso as funções
+		else{ // não é bomba
+			contagemBombas(x, y);// resolver a questão do acesso as funções
 			return false;
 		}
 	}
-}
 	//ver como mudar para herança
-	/*
-	public void sortearBombas() {
-		int n = bombas;
+	
+	public void iniciarCelulas() {
 		Random rand = new Random();
-		while (n > 0) {
+		
+		for (int i = 0; i < this.bombas; i++) {
 			int l = rand.nextInt(tamanho);
 			int c = rand.nextInt(tamanho);
-			
-			if (matriz[l][c].bomba()){
-				n--;
+	
+			// Verifica se a célula na posição é nula
+			if (matriz[l][c] == null) {
+				matriz[l][c] = new Bomba();
+			} else {
+				i--;
+			}
+		}
+	
+		// Preencher o restante da matriz com CelulaVazia
+		for (int i = 0; i < tamanho; i++) {
+			for (int j = 0; j < tamanho; j++) {
+				if (matriz[i][j] == null) {
+					matriz[i][j] = new CelulaVazia();
+				}
 			}
 		}
 	}
-	 */
 
-/*	
-private int bandeiras;
-private int selecionados;
-
-public int bombas() {
-	return this.bombas;
-}
-
-public int selecionados() {
-	return this.selecionados;
-}
-
-public int tamanho() {
-	return this.tamanho;
-}
-
-public int bandeiras() {
-	return this.bandeiras;
-}
-
-public void colocarBandeira(int x, int y) {
-	if(this.bandeiras > 0) {
-		if (!(this.matriz[x][y].temBandeira)) {
+	public Tabuleiro() {
+		this.tamanho = 6;
+		this.bombas = 5;
+	    matriz = new Celula[tamanho][tamanho];
+	}
+	
+	//mudar para funcionar
+	 /*
+	public void colocarBandeira(int x, int y) {
+		if (!(this.matriz[x][y].getBandeira())) {
 			this.matriz[x][y].selecionarBandeira();
 			this.bandeiras --;
 		}
 	}	
+
+	 */
 }
+	
+/*	
+
+
+
 public void retirarBandeira(int x, int y) {
 	if(this.matriz[x][y].bandeira()) {
 		this.matriz[x][y].retirarBandeira();
