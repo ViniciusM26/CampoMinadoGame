@@ -6,6 +6,7 @@ public class CampoMinado {
 		
 		Tabuleiro tabuleiro = new Tabuleiro();
 		tabuleiro.iniciarCelulas();
+		tabuleiro.selecionar(0, 0);
 		System.out.println(tabuleiro);
 
 	}

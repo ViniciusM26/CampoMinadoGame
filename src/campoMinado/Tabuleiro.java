@@ -20,19 +20,21 @@ public class Tabuleiro {
 		
 		for (int i = 0; i < tamanho; i++) {
 			for (int j = 0; j < tamanho; j++) {
-				if (matriz[i][j] instanceof Bomba)
+				if (matriz[i][j].getClicado() == false || matriz[i][j] == null)
 				str += "# ";
-				else 
-				str += "* ";
+				else{
+					str += matriz[i][j].getSimbolo();
+					str += " ";
+				}
 			}
 			str += "\n";
 		}
 		return str;
-	}	
+	}
 
-	public void contagemBombas(int x, int y){
+	public int contagemBombas(int x, int y){
 	int contador = 0;
-	CelulaVazia celulaVazia = (CelulaVazia)matriz[x][y];
+	CelulaVizinha celulaVizinha = (CelulaVizinha)matriz[x][y];
 	// Percorre em x nas 3 posições
 	for(int i = -1;i < 2;  i++) {
 		//verifica se a soma não será uma posição negativa
@@ -51,16 +53,23 @@ public class Tabuleiro {
 			}
 		}
 	}
-	celulaVazia.setContagemBombas(contador);
+	celulaVizinha.setContagemBombas(contador);
+	return contador;
 }
 
 	public boolean selecionar(int x, int y){
-		this.matriz[x][y].clicarCelula();
 		if (this.matriz[x][y] instanceof Bomba)// verifica se é bomba
-			return true;
-		else{ // não é bomba
-			contagemBombas(x, y);// resolver a questão do acesso as funções
-			return false;
+			return true;// retorna verdadeiro para se tem bomba
+		else {
+			if (matriz[x][y] == null){ //Verifica se ja foi selecionado
+				if (!(contagemBombas(x, y) == 0)){
+					matriz[x][y] = new CelulaVizinha();// atribui objeto 
+					contagemBombas(x, y);
+				}else{
+					matriz[x][y] = new CelulaVazia();// atribui objeto 
+				}
+			}	
+			return false;// retorna falso para se tem bomba
 		}
 	}
 	//ver como mudar para herança
@@ -81,13 +90,7 @@ public class Tabuleiro {
 		}
 	
 		// Preencher o restante da matriz com CelulaVazia
-		for (int i = 0; i < tamanho; i++) {
-			for (int j = 0; j < tamanho; j++) {
-				if (matriz[i][j] == null) {
-					matriz[i][j] = new CelulaVazia();
-				}
-			}
-		}
+		
 	}
 
 	public Tabuleiro() {

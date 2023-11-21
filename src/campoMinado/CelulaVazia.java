@@ -1,13 +1,18 @@
 package campoMinado;
 
 public class CelulaVazia extends Celula {
-    private int contagemBombas;
+    private char simbolo;
 
-    public int getContagemBombas(){
-        return this.contagemBombas;
+    public CelulaVazia () {
+        this.simbolo = '@';
+        super.setClicado(true);
     }
-    public void setContagemBombas(int contador){
-        this.contagemBombas = contador; 
+
+    public char getSimbolo() {
+        return simbolo;
     }
-    
+
+    public void setSimbolo(char simbolo) {
+        this.simbolo = simbolo;
+    }
 }
