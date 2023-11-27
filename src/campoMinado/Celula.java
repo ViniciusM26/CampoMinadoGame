@@ -21,7 +21,7 @@ public class Celula {
 	}
 
 	public void setClicado(boolean p1){
-		this.bandeira = p1;
+		this.clicado = p1;
 	}
 
 	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeira

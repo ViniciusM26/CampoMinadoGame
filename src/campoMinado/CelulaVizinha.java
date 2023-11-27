@@ -2,18 +2,12 @@ package campoMinado;
 
 public class CelulaVizinha extends Celula {
     private int contagemBombas;
-    private char simbolo;
     public CelulaVizinha () {
-        this.simbolo = (char) this.contagemBombas;
         super.setClicado(true);
     }
 
     public char getSimbolo() {
-        return simbolo;
-    }
-
-    public void setSimbolo(char simbolo) {
-        this.simbolo = simbolo;
+        return (char)('0' + this.contagemBombas);
     }
 
     public int getContagemBombas(){
