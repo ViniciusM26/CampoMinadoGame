@@ -4,7 +4,8 @@ public class CelulaVazia extends Celula {
     private char simbolo;
 
     public CelulaVazia () {
-        this.simbolo = '@';
+        super();
+        setSimbolo('@');
         super.setClicado(true);
     }
 
@@ -12,7 +13,7 @@ public class CelulaVazia extends Celula {
         return simbolo;
     }
 
-    public void setSimbolo(char simbolo) {
+    private void setSimbolo(char simbolo) {
         this.simbolo = simbolo;
     }
 }

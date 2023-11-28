@@ -1,8 +1,11 @@
 package campoMinado;
 
 public class CelulaVizinha extends Celula {
+
     private int contagemBombas;
-    public CelulaVizinha () {
+    public CelulaVizinha (int contagemBombas) {
+        super();
+        setContagemBombas(contagemBombas);
         super.setClicado(true);
     }
 
@@ -14,8 +17,8 @@ public class CelulaVizinha extends Celula {
         return this.contagemBombas;
     }
     public void setContagemBombas(int contador){
+        if(contador > 0)
         this.contagemBombas = contador; 
     }
-
-    
+   
 }
