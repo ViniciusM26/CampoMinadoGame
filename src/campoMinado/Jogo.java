@@ -34,23 +34,49 @@ public class Jogo {
 		setFuncionamentoJogo(true);
 
 		Scanner scanner = new Scanner(System.in);
-
+		int modo = 0;
 		while(getFuncionamentoJogo() == true){
 			System.out.println(tabuleiro);//impressão do tabueleiro
-
 			//entrada de dados
 			String entrada = scanner.nextLine();
 			String[] valores = entrada.split(" ");
-			int valor1 = Integer.parseInt(valores[0]);
-			int valor2 = Integer.parseInt(valores[1]);
-			
-			if((tabuleiro.selecionar(valor1, valor2))){
-				setFuncionamentoJogo(false);
-				System.out.println("Encontrou Bomba!");
-				System.out.println(tabuleiro);
-				scanner.close();
-			};
+			int valor1 = -1;
+			int valor2 = -1;
+			if(valores.length == 1){
+				if(modo == 0)
+					modo = 1;
+				else
+					modo = 0;
+			}else if (valores.length == 2){
+				if (isInteger(valores[0]) && isInteger(valores[1])){
+				valor1 = Integer.parseInt(valores[0+modo]);
+				valor2 = Integer.parseInt(valores[1+modo]);
+					if((tabuleiro.selecionar(valor1, valor2,modo))){
+						setFuncionamentoJogo(false);
+						System.out.println("Encontrou Bomba!");
+						System.out.println(tabuleiro);
+						scanner.close();
+					};
+				}
+			}else{
+
+			}
 		}
 	 }
+
+	 private static boolean isInteger(String s) {
+		try {
+			Scanner sc = new Scanner(s);
+			if (sc.hasNextInt()) {
+				sc.nextInt();
+				return !sc.hasNext(); // Garante que não há mais tokens
+			} else {
+				return false;
+			}
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
 }
 

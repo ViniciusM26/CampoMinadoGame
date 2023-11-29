@@ -6,7 +6,7 @@ public class CelulaVazia extends Celula {
     public CelulaVazia () {
         super();
         setSimbolo('@');
-        super.setClicado(true);
+        super.setClicado(false);
     }
 
     public char getSimbolo() {

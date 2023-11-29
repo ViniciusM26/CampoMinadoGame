@@ -37,15 +37,16 @@ public class Tabuleiro {
 			for (int j = 0; j < tamanho; j++) {
 				if (matriz[i][j] == null || matriz[i][j].getClicado() == false){
 					str += "# ";
+				}else if (!(matriz[i][j].getBandeira())){
+					str += matriz[i][j].getSimbolo();
+					str += " ";
+				}else{
+					str += "$ ";
 				}
-					else{
-						str += matriz[i][j].getSimbolo();
-						str += " ";
-					}
-				}
+			}
 				str += "\n";
 			}
-			return str;
+		return str;
 	}
 
 	public int contagemBombas(int x, int y){
@@ -71,30 +72,39 @@ public class Tabuleiro {
 		return contador;
 	}
 
-	public boolean selecionar(int x, int y) {
+	public boolean selecionar(int x, int y, int z) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			//verifica se não é nulo ou é bomba
-			if (!(this.matriz[x][y] == null) && this.matriz[x][y] instanceof Bomba) { 
-				matriz[x][y].setClicado(true);
-				return true; // retorna verdadeiro se tem bomba
-			} else {
-				if (matriz[x][y] == null) { // Verifica se já foi selecionado
-					int bombasAoRedor = contagemBombas(x, y);
-					if (bombasAoRedor > 0) {
-						matriz[x][y] = new CelulaVizinha(contagemBombas(x, y));
-					} else {
-						matriz[x][y] = new CelulaVazia();
-						for (int i = -1; i < 2; i ++){
-							for(int j = -1; j < 2; j++){
-								selecionar(x+i,y+j);
+			if (z == 0){ //resolver as bandeiras
+				if (!(this.matriz[x][y] == null) && this.matriz[x][y] instanceof Bomba) { 
+					matriz[x][y].setClicado(true);
+					return true; // retorna verdadeiro se tem bomba
+				} else {
+					if (matriz[x][y] == null ) { // Verifica se já foi selecionado
+						int bombasAoRedor = contagemBombas(x, y);
+						if (bombasAoRedor > 0) {
+							matriz[x][y] = new CelulaVizinha(contagemBombas(x, y));
+							matriz[x][y].clicarCelula();
+						} else {
+							matriz[x][y] = new CelulaVazia();
+							matriz[x][y].clicarCelula();
+							for (int i = -1; i < 2; i ++){
+								for(int j = -1; j < 2; j++){
+									selecionar(x+i,y+j,0);
+								}
 							}
 						}
 					}
+					return false; // retorna falso se tem bomba
 				}
-				return false; // retorna falso se tem bomba
-			}
-		}
-		return false;//retorna falso por ser um lugar invalido
+			}/*else{
+				if(matriz[x][y] == null){
+					matriz[x][y];
+				matriz[x][y].selecionarBandeira();
+			} 
+			}*/
+	}
+		return false;//retorna falso por ser um lugar invalido ou por ter bandeira
 	}	
 	private void iniciarCelulas() {
 		Random rand = new Random();

@@ -6,7 +6,7 @@ public class CelulaVizinha extends Celula {
     public CelulaVizinha (int contagemBombas) {
         super();
         setContagemBombas(contagemBombas);
-        super.setClicado(true);
+        super.setClicado(false);
     }
 
     public char getSimbolo() {
