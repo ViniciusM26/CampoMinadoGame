@@ -8,11 +8,11 @@ public class Tabuleiro {
 	private int tamanho ;
 	private int bombas;
 
-	public Tabuleiro(int tamanho,int bombas) {
-		setTamanho(tamanho);
-		setBombas(bombas);
+	public Tabuleiro(int p1, int p2) {
+		this.setTamanho(p1);
+		this.setBombas(p2);
 
-	    matriz = new Celula[tamanho][tamanho];
+	    matriz = new Celula[getTamanho()][getTamanho()];
 		iniciarCelulas();
 
 	}

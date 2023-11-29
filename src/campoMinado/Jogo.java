@@ -8,7 +8,7 @@ public class Jogo {
 	 private int tempo;
 
 	 public Jogo() {
-		setTabuleiro(new Tabuleiro(7, 5));
+		setTabuleiro(new Tabuleiro(7,1));
 		 this.tempo = 0;
 	 }
 	    
@@ -29,13 +29,13 @@ public class Jogo {
 	 public int tempo() {
 		 return this.tempo;
 	 }
+
 	 public void Jogar(){
-		setTabuleiro(new Tabuleiro(5,5));
 		setFuncionamentoJogo(true);
 
 		Scanner scanner = new Scanner(System.in);
 
-		while(this.funcionamentoJogo == true){
+		while(getFuncionamentoJogo() == true){
 			System.out.println(tabuleiro);//impressão do tabueleiro
 
 			//entrada de dados
@@ -50,10 +50,6 @@ public class Jogo {
 				System.out.println(tabuleiro);
 				scanner.close();
 			};
-
-
-
-
 		}
 	 }
 }
