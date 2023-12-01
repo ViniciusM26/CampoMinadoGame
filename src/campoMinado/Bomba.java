@@ -5,7 +5,7 @@ public class Bomba extends Celula {
 
     public Bomba () {
         super();
-        setSimbolo('!');
+        setSimbolo('°');
     }
 
     public char getSimbolo() {
