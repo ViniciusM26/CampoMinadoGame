@@ -1,17 +1,17 @@
-package campoMinado;
+package campoMinado.Celulas;
 
 public class Celula {
 	
 	private boolean clicado;
 
 	public Celula(){
-		this.clicado = false;
+		setClicado(false);
 	}
 	
 	public boolean getClicado (){
 		return this.clicado;
 	}
-	public void setClicado(boolean p1){
+	private void setClicado(boolean p1){
 		this.clicado = p1;
 	}
 		
@@ -27,7 +27,4 @@ public class Celula {
         }
     }
 
-	public void reset() {
-		setClicado(false);
-	}
 }

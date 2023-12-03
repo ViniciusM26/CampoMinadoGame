@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.Celulas;
 
 public class Bomba extends Celula {
     private char simbolo;

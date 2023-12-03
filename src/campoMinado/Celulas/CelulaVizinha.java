@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.Celulas;
 
 public class CelulaVizinha extends Celula {
 
@@ -6,7 +6,6 @@ public class CelulaVizinha extends Celula {
     public CelulaVizinha (int contagemBombas) {
         super();
         setContagemBombas(contagemBombas);
-        super.setClicado(false);
     }
 
     public char getSimbolo() {
@@ -17,7 +16,7 @@ public class CelulaVizinha extends Celula {
         return this.contagemBombas;
     }
     public void setContagemBombas(int contador){
-        if(contador > 0)
+        if(contador > 0 && contador < 9)
         this.contagemBombas = contador; 
     }
    

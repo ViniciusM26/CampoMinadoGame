@@ -2,6 +2,11 @@ package campoMinado;
 
 import java.util.Random;
 
+import campoMinado.Celulas.Bomba;
+import campoMinado.Celulas.Celula;
+import campoMinado.Celulas.CelulaVazia;
+import campoMinado.Celulas.CelulaVizinha;
+
 public class Tabuleiro {
 	
 	private Celula [][] matriz; 
@@ -57,27 +62,6 @@ public class Tabuleiro {
 			getBandeiras()[x][y] = false;
 		else
 			getBandeiras()[x][y] = true;
-	}
-
-	public String toString() {
-		String str = "";
-		
-		for (int i = 0; i < tamanho; i++) {
-			for (int j = 0; j < tamanho; j++) {
-				if (!(bandeiras[i][j])){// verifica se tem bandeira no local
-					if (matriz[i][j] == null || matriz[i][j].getClicado() == false){
-						str += "# ";
-					}else {
-						str += matriz[i][j].getSimbolo();
-						str += " ";
-					}
-				}else{
-					str += "! ";
-				}
-			}
-				str += "\n";
-			}
-		return str;
 	}
 
 	public int contagemBombas(int x, int y){
@@ -158,5 +142,27 @@ public class Tabuleiro {
 			}
 		}
 	}
+	@Override
+    public String toString() {
+		String str = "";
+		
+		for (int i = 0; i < tamanho; i++) {
+			for (int j = 0; j < tamanho; j++) {
+				if (!(bandeiras[i][j])){// verifica se tem bandeira no local
+					if (matriz[i][j] == null || matriz[i][j].getClicado() == false){
+						str += "# ";
+					}else {
+						str += matriz[i][j].getSimbolo();
+						str += " ";
+					}
+				}else{
+					str += "! ";
+				}
+			}
+				str += "\n";
+			}
+		return str;
+	}
+
 }
 	

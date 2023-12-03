@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.Celulas;
 
 public class CelulaVazia extends Celula {
     private char simbolo;
@@ -6,7 +6,6 @@ public class CelulaVazia extends Celula {
     public CelulaVazia () {
         super();
         setSimbolo('@');
-        super.setClicado(false);
     }
 
     public char getSimbolo() {
