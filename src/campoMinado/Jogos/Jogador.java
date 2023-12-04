@@ -1,4 +1,4 @@
-package campoMinado;
+package campoMinado.Jogos;
 
 public class Jogador {
     private String nome;
