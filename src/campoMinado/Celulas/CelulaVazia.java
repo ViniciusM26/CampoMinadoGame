@@ -5,7 +5,7 @@ public class CelulaVazia extends Celula {
 
     public CelulaVazia () {
         super();
-        setSimbolo('@');
+        setSimbolo('@'); // atribui um simbolo que será utilizado
     }
 
     public char getSimbolo() {

@@ -5,7 +5,7 @@ public class Bomba extends Celula {
 
     public Bomba () {
         super();
-        setSimbolo('°');
+        setSimbolo('°'); // atribui o simbolo que será impresso
     }
 
     public char getSimbolo() {

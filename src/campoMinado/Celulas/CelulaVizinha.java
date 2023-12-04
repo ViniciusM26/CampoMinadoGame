@@ -15,8 +15,9 @@ public class CelulaVizinha extends Celula {
     public int getContagemBombas(){
         return this.contagemBombas;
     }
+
     public void setContagemBombas(int contador){
-        if(contador > 0 && contador < 9)
+        if(contador > 0 && contador < 9) // verifica se a entrada é válida
         this.contagemBombas = contador; 
     }
    

@@ -19,16 +19,17 @@ public class Tabuleiro {
 		this.setBombas(p2);
  
 		setBandeiras(new boolean[getTamanho()][getTamanho()]);
-		iniciarBandeiras();
+		iniciarBandeiras(); // função que inicializa os elementos como false
 
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
-		iniciarCelulas();
+		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
 
 	}
 
-	public void setMatriz(Celula [][] matriz){
+	private void setMatriz(Celula [][] matriz){
 		this.matriz = matriz;
 	}
+
 	public Celula [][] getMatriz(){
 		return this.matriz;
 	}
@@ -37,7 +38,7 @@ public class Tabuleiro {
 		return bandeiras;
 	}
 
-	public void setBandeiras(boolean[][] bandeiras) {
+	private void setBandeiras(boolean[][] bandeiras) {
 		this.bandeiras = bandeiras;
 	}
 
@@ -45,7 +46,7 @@ public class Tabuleiro {
 	return this.tamanho;
 	}
 
-	public void setTamanho(int p1){
+	private void setTamanho(int p1){
 	this.tamanho = p1;
 	}
 
@@ -53,7 +54,7 @@ public class Tabuleiro {
 	return this.bombas;
 	}
 
-	public void setBombas(int p1){
+	private void setBombas(int p1){
 	this.bombas = p1;
 	}
 
@@ -66,9 +67,9 @@ public class Tabuleiro {
 
 	public int contagemBombas(int x, int y){
 		int contador = 0;
-			// Percorre em x nas 3 posições
+		// Percorre em x nas 3 posições
 		for(int i = -1;i < 2;  i++) {
-				//verifica se a soma não será uma posição negativa ou maior que o tamanho
+			//verifica se a soma não será uma posição negativa ou maior que o tamanho
 			if ((x + i) >= 0 && (x + i) < getTamanho()) {
 				//percorre em y nas 3 posições
 				for (int j = -1; j < 2; j++) {
@@ -90,21 +91,22 @@ public class Tabuleiro {
 	public boolean selecionar(int x, int y, int z) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			//verifica se não é nulo ou é bomba
-			if (z == 0){ //resolver as bandeiras
+			if (z == 0){
 				if (!(bandeiras[x][y])){// verifica se tem bandeira
 					if (!(this.matriz[x][y] == null) && this.matriz[x][y] instanceof Bomba) { 
 						matriz[x][y].clicarCelula();
 						return true; // retorna verdadeiro se tem bomba
 					} else {
 						if (matriz[x][y] == null ) { // Verifica se já foi selecionado
-							int bombasAoRedor = contagemBombas(x, y);
-							if (bombasAoRedor > 0) {
+							int bombasAoRedor = contagemBombas(x, y); // Armazena a quantidade de bombas ao redor de uma célula
+							if (bombasAoRedor > 0) { // verifica o tipo da celula
 								matriz[x][y] = new CelulaVizinha(contagemBombas(x, y));
-								matriz[x][y].clicarCelula();
+								matriz[x][y].clicarCelula(); // faz com que a celula seja clicada
 							} else {
 								matriz[x][y] = new CelulaVazia();
-								matriz[x][y].clicarCelula();
-								for (int i = -1; i < 2; i ++){
+								matriz[x][y].clicarCelula(); // faz com que a celula seja clicada
+								// seleção de todas as bombas ao redor
+								for (int i = -1; i < 2; i ++){ 
 									for(int j = -1; j < 2; j++){
 										selecionar(x+i,y+j,0);
 									}
@@ -115,21 +117,22 @@ public class Tabuleiro {
 					}
 				}
 			}else{
-				mudarBandeira(x, y);
+				mudarBandeira(x, y); // inverte o boolean da bandeira
 			} 
 		}
-		return false;//retorna falso por ser um lugar invalido ou por ter bandeira
+		return false; // retorna falso por não ter bomba
 	}	
 	private void iniciarCelulas() {
-		Random rand = new Random();
+		Random rand = new Random(); // cria um random
 		
+		// sorteio de bombas
 		for (int i = 0; i < getBombas(); i++) {
-			int l = rand.nextInt(tamanho);
-			int c = rand.nextInt(tamanho);
+			int l = rand.nextInt(tamanho); // random em x
+			int c = rand.nextInt(tamanho); // random em y
 	
-			// Verifica se a célula na posição é nula
-			if (matriz[l][c] == null) {
-				matriz[l][c] = new Bomba();
+			// Verifica se a célula na posição não é bomba
+			if (matriz[l][c] == null || !(matriz [l][c] instanceof Bomba)) { // pensar sobre modificação de posições para o jogo maluco
+				matriz[l][c] = new Bomba(); // coloca uma bomba no local
 			} else {
 				i--;
 			}
@@ -138,7 +141,7 @@ public class Tabuleiro {
 	private void iniciarBandeiras(){
 		for (int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++){
-				getBandeiras()[i][j] = false;
+				getBandeiras()[i][j] = false; // coloca todas as posições como false
 			}
 		}
 	}
@@ -150,16 +153,16 @@ public class Tabuleiro {
 			for (int j = 0; j < tamanho; j++) {
 				if (!(bandeiras[i][j])){// verifica se tem bandeira no local
 					if (matriz[i][j] == null || matriz[i][j].getClicado() == false){
-						str += "# ";
+						str += "# "; // simbolo para não selecionados
 					}else {
-						str += matriz[i][j].getSimbolo();
-						str += " ";
+						str += matriz[i][j].getSimbolo(); // pega o simbolo por overwriting
+						str += " "; // espaçamento
 					}
 				}else{
-					str += "! ";
+					str += "! "; // simbolo para bandeiras
 				}
 			}
-				str += "\n";
+				str += "\n";// quebra de linha
 			}
 		return str;
 	}

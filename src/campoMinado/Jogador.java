@@ -11,7 +11,7 @@ public class Jogador {
         setPontos(0);
     }
 
-    public boolean isJogando() {
+    public boolean isJogando() { // função que retorna o estado do jogador
         return jogando;
     }
 
@@ -35,7 +35,7 @@ public class Jogador {
         this.nome = nome;
     }
 
-    public void eliminado(){
+    public void eliminado(){ // função que altera o estado do jogador
         setJogando(false);
     }
     @Override
