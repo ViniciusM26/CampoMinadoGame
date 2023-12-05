@@ -1,46 +1,28 @@
-package campoMinado.Jogos;
+package campoMinado.ModosJogo;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class JogoMultiplayer extends Jogo {
-	public JogoMultiplayer() {
+import campoMinado.ComponentesJogo.Jogador;
+
+public class JogoSolo extends Jogo {
+	public JogoSolo() {
 		super();
 	}
-
-
-	public void Jogar(Jogador jogador1, Jogador jogador2){
+	public void Jogar(){
 		inciarJogo();
-		Scanner scanner = new Scanner(System.in);// inicializa o scanner
+        
+		Jogador jogador = new Jogador("Bruno");
 
-		Jogador jogadorDaRodada; // cria uma referencia ao jogador da rodada
+		Scanner scanner = new Scanner(System.in);// inicializa o scanner
 
 		while(getFuncionamentoJogo() == true){
 			System.out.println(getTabuleiro());//impressão do tabueleiro
-			if (getRodadas() % 2 == 1) // escolhe qual será o jogador da rodada
-				jogadorDaRodada = jogador1;
-			else
-				jogadorDaRodada = jogador2;
+
 			//entrada de dados
 			int valor1,valor2,valor3;
-			
+
 			try {
-				
-            	System.out.print(jogadorDaRodada + "\nDigite a linha: "); // instruções para o console
-
-            	valor1 = scanner.nextInt(); // primeiro input
-				if (valor1 > 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-					System.out.println("perdeu sua vez! Digite um valor valido!");
-					continue;
-				}
-				System.out.print("Digite a coluna: ");  // instruções para o console
-
-				valor2 = scanner.nextInt(); // Segundo input
-				if (valor2 < 0 || valor2 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-					System.out.println("perdeu sua vez! Digite um valor valido!");
-					continue;
-				}
-
 				System.out.println("0 -> clicar celula/ 1 -> alterar bandeira");  // instruções para o console
 
 				int modo = scanner.nextInt(); // terceiro input
@@ -48,15 +30,36 @@ public class JogoMultiplayer extends Jogo {
 				// tratamento da entrada para o valor ser valido
 				if(modo < 1) 
 					modo = 0;
-				else
-					modo = 1;
+				else if(modo == 2){
+                    pararJogo();
+                    scanner.close();
+                    continue;
+                }
+                else
+				    modo = 1;
 				valor3 = modo;
 
+            	System.out.print(jogador + "\nDigite a linha: "); // instruções para o console
+
+            	valor1 = scanner.nextInt(); // primeiro input
+				if (valor1 > 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+					System.out.println("Digite um valor valido!");
+					continue;
+				}
+				System.out.print("Digite a coluna: ");  // instruções para o console
+
+				valor2 = scanner.nextInt(); // Segundo input
+				if (valor2 < 0 || valor2 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+					System.out.println("Digite um valor valido!");
+					continue;
+				}
+
+				
 				super.passarRodada(); // se tudo for válido, a rodada será passada
 
 				if((getTabuleiro().selecionar(valor1, valor2, valor3))){ // verifica se tem bomba e altera a celula
 					pararJogo();
-					System.out.println(jogadorDaRodada + "Encontrou Bomba!");
+					System.out.println(jogador + "Encontrou Bomba!");
 					System.out.println(getTabuleiro());
 					scanner.close();
 				}

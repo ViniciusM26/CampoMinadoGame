@@ -1,6 +1,6 @@
-package campoMinado.Jogos;
+package campoMinado.ModosJogo;
 
-import campoMinado.Tabuleiro;
+import campoMinado.ComponentesJogo.Tabuleiro;
 
 public class Jogo {
     private boolean funcionamentoJogo;
@@ -9,6 +9,10 @@ public class Jogo {
 
     public Jogo(){
 		setTabuleiro(new Tabuleiro(7,7));
+    }
+
+    public void Jogar(){
+
     }
 
     public int getRodadas() {

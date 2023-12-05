@@ -1,4 +1,4 @@
-package campoMinado.Jogos;
+package campoMinado.ComponentesJogo;
 
 public class Jogador {
     private String nome;
@@ -37,6 +37,13 @@ public class Jogador {
 
     public void eliminado(){ // função que altera o estado do jogador
         setJogando(false);
+    }
+
+    public void passarRodada(){
+        setPontos(getPontos() + 1);
+    }
+    public void encontrarBomba(){
+        setPontos(getPontos() - 3);
     }
     @Override
     public String toString() {
