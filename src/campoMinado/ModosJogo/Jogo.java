@@ -1,6 +1,11 @@
 package campoMinado.ModosJogo;
 
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+
 import campoMinado.ComponentesJogo.Tabuleiro;
+import campoMinado.ModosJogo.Jogadores.Jogador;
 
 public class Jogo {
     private boolean funcionamentoJogo;
@@ -51,5 +56,67 @@ public class Jogo {
 	public void pararJogo(){ // função que para o jogo
 		setFuncionamentoJogo(false);
 	}
+
+    protected void rodadaPadrao(Jogador jogador){
+        
+        Scanner scanner = new Scanner(System.in);// inicializa o scanner
+
+        System.out.println(getTabuleiro());//impressão do tabueleiro
+        
+        //entrada de dados
+        int x,y,modo;
+        
+        try {
+            System.out.println("0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
+
+            modo = scanner.nextInt(); // terceiro input
+
+            // tratamento da entrada para o valor ser valido
+            if(modo < 1) 
+                modo = 0;
+            else if (modo > 1){
+                pararJogo();
+                scanner.close();
+                return;
+            }else
+                modo = 1;
+            
+            System.out.print("\nDigite a linha: "); // instruções para o console
+
+            x = scanner.nextInt(); // primeiro input
+            if (x < 0 || x > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+                System.out.println("Digite um valor valido!");
+                return;
+            }
+            System.out.print("Digite a coluna: ");  // instruções para o console
+
+            y = scanner.nextInt(); // Segundo input
+            if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+                System.out.println("perdeu sua vez! Digite um valor valido!");
+                return;
+            }
+
+            passarRodada(); // se tudo for válido, a rodada será passada
+            
+            if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){
+                pararJogo();
+            }
+
+            if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
+                jogador.encontrarBomba();
+                System.out.println(jogador + jogador.encontrarBomba());
+            }else{
+                jogador.passarRodada();
+                System.out.println(jogador + jogador.passarRodada());
+            }
+
+        } catch (InputMismatchException e ) {
+            System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
+            scanner.nextLine();
+            return;
+        } 
+        
+
+    } 
    
 }

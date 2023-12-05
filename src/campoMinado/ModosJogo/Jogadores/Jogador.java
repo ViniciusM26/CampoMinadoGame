@@ -1,4 +1,4 @@
-package campoMinado.ComponentesJogo;
+package campoMinado.ModosJogo.Jogadores;
 
 public class Jogador {
     private String nome;
@@ -15,7 +15,7 @@ public class Jogador {
         return jogando;
     }
 
-    private void setJogando(boolean jogando) {
+    protected void setJogando(boolean jogando) {
         this.jogando = jogando;
     }
 
@@ -23,7 +23,7 @@ public class Jogador {
         return pontos;
     }
 
-    private void setPontos(int pontos) {
+    protected void setPontos(int pontos) {
         this.pontos = pontos;
     }
 
@@ -39,12 +39,14 @@ public class Jogador {
         setJogando(false);
     }
 
-    public void passarRodada(){
+    public String passarRodada(){
         setPontos(getPontos() + 1);
+        return "";
     }
     
-    public void encontrarBomba(){
-        setPontos(getPontos() - 3);
+    public String encontrarBomba(){
+        return "";
+        //setPontos(getPontos() - 3);
     }
     @Override
     public String toString() {
