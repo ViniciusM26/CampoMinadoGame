@@ -1,6 +1,5 @@
 package campoMinado;
 
-import campoMinado.ComponentesJogo.Jogador;
 import campoMinado.ModosJogo.Jogo;
 import campoMinado.ModosJogo.JogoMultiplayer;
 import campoMinado.ModosJogo.JogoSolo;

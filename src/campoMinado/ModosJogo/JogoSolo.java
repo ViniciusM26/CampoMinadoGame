@@ -42,7 +42,7 @@ public class JogoSolo extends Jogo {
             	System.out.print(jogador + "\nDigite a linha: "); // instruções para o console
 
             	valor1 = scanner.nextInt(); // primeiro input
-				if (valor1 > 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+				if (valor1 < 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
 					System.out.println("Digite um valor valido!");
 					continue;
 				}
@@ -56,6 +56,8 @@ public class JogoSolo extends Jogo {
 
 				
 				super.passarRodada(); // se tudo for válido, a rodada será passada
+				if (getRodadas() == (getTabuleiro().getTamanho() ^ 2))
+					pararJogo();
 
 				if((getTabuleiro().selecionar(valor1, valor2, valor3))){ // verifica se tem bomba e altera a celula
 					pararJogo();

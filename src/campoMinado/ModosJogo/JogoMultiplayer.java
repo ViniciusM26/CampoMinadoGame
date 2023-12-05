@@ -30,7 +30,6 @@ public class JogoMultiplayer extends Jogo {
 			int valor1,valor2,valor3;
 			
 			try {
-				
 				System.out.println("0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
 
 				int modo = scanner.nextInt(); // terceiro input
@@ -50,7 +49,7 @@ public class JogoMultiplayer extends Jogo {
             	System.out.print(jogadorDaRodada + "\nDigite a linha: "); // instruções para o console
 
             	valor1 = scanner.nextInt(); // primeiro input
-				if (valor1 > 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
+				if (valor1 < 0 || valor1 > getTabuleiro().getTamanho()){ // verifica se entrada é valida
 					System.out.println("perdeu sua vez! Digite um valor valido!");
 					continue;
 				}
@@ -62,15 +61,19 @@ public class JogoMultiplayer extends Jogo {
 					continue;
 				}
 
-
 				super.passarRodada(); // se tudo for válido, a rodada será passada
-
-				if((getTabuleiro().selecionar(valor1, valor2, valor3))){ // verifica se tem bomba e altera a celula
+				if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){
 					pararJogo();
-					System.out.println(jogadorDaRodada + "Encontrou Bomba!");
-					System.out.println(getTabuleiro());
-					scanner.close();
 				}
+				if((getTabuleiro().selecionar(valor1, valor2, valor3))){ // verifica se tem bomba e altera a celula
+					jogadorDaRodada.encontrarBomba();
+					System.out.println(jogadorDaRodada + "Encontrou Bomba! (- 3 pontos)");
+				}else{
+					jogadorDaRodada.passarRodada();
+					System.out.println(jogadorDaRodada + "não achou bombas (+ 1 ponto)");
+				}
+
+				System.out.println("pontuação de " + jogadorDaRodada + jogadorDaRodada.getPontos());
        	 	} catch (InputMismatchException e ) {
             	System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
 				scanner.nextLine();

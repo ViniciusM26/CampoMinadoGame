@@ -42,6 +42,7 @@ public class Jogador {
     public void passarRodada(){
         setPontos(getPontos() + 1);
     }
+    
     public void encontrarBomba(){
         setPontos(getPontos() - 3);
     }
