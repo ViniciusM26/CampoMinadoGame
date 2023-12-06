@@ -1,6 +1,5 @@
 package campoMinado.ModosJogo;
 
-import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 
 public class JogoSolo extends Jogo {
@@ -11,12 +10,15 @@ public class JogoSolo extends Jogo {
 		inciarJogo();
         
 		JogadorSingle jogador = new JogadorSingle("Bruno");
+		
 
 		while(getFuncionamentoJogo() == true){
 			rodadaPadrao(jogador);
-			if(!(jogador.isJogando()))
+
+			if(!(jogador.isJogando())){
 				System.out.println(getTabuleiro());
 				pararJogo();
+			}
 		}
 	}	
 }

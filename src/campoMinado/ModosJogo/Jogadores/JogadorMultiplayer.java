@@ -10,7 +10,7 @@ public class JogadorMultiplayer extends Jogador {
     }
 
     public String passarRodada(){
-        super.passarRodada();
+        setPontos(getPontos() + 1);
         return "Você não encontrou bomba!(ganhe 1 ponto)";
     }
 

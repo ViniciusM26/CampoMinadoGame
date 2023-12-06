@@ -1,9 +1,5 @@
 package campoMinado.ModosJogo;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 
 public class JogoMultiplayer extends Jogo {
@@ -24,7 +20,9 @@ public class JogoMultiplayer extends Jogo {
 				jogadorDaRodada = jogador1;
 			else
 				jogadorDaRodada = jogador2;
+
 			rodadaPadrao(jogadorDaRodada);
+			System.out.println((jogadorDaRodada.getPontos()));
 		}
 	}	
 }

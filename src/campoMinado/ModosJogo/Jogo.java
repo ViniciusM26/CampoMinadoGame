@@ -92,23 +92,23 @@ public class Jogo {
 
             y = scanner.nextInt(); // Segundo input
             if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                System.out.println("perdeu sua vez! Digite um valor valido!");
+                System.out.println("Digite um valor valido!");
                 return;
             }
             
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){
                 pararJogo();
             }
-            if(getTabuleiro().getMatriz()[x][y] == null || !(getTabuleiro().getMatriz()[x][y].getClicado()))
+            if(getTabuleiro().getMatriz()[x][y] == null || !(getTabuleiro().getMatriz()[x][y].getClicado())){
                 if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
-                    jogador.encontrarBomba();
-                    System.out.println(jogador + jogador.encontrarBomba());
+                    System.out.println(jogador + jogador.encontrarBomba());// imprime e retira os pontos
                 }else{
-                    jogador.passarRodada();
-                    System.out.println(jogador + jogador.passarRodada());
-                    passarRodada();
+                    System.out.println(jogador + jogador.passarRodada()); // imprime e coloca os pontos
                 }
-            else System.out.println("celula ja selecionada");
+                passarRodada();
+            }
+            else 
+                System.out.println("celula ja selecionada");
             
 
         } catch (InputMismatchException e ) {
@@ -116,8 +116,5 @@ public class Jogo {
             scanner.nextLine();
             return;
         } 
-        
-
     } 
-   
 }
