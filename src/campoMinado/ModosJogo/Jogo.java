@@ -67,7 +67,7 @@ public class Jogo {
         int x,y,modo;
         
         try {
-            System.out.println("0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
+            System.out.println(jogador+"\n0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
 
             modo = scanner.nextInt(); // terceiro input
 
@@ -95,20 +95,21 @@ public class Jogo {
                 System.out.println("perdeu sua vez! Digite um valor valido!");
                 return;
             }
-
-            passarRodada(); // se tudo for válido, a rodada será passada
             
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){
                 pararJogo();
             }
-
-            if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
-                jogador.encontrarBomba();
-                System.out.println(jogador + jogador.encontrarBomba());
-            }else{
-                jogador.passarRodada();
-                System.out.println(jogador + jogador.passarRodada());
-            }
+            if(getTabuleiro().getMatriz()[x][y] == null || !(getTabuleiro().getMatriz()[x][y].getClicado()))
+                if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
+                    jogador.encontrarBomba();
+                    System.out.println(jogador + jogador.encontrarBomba());
+                }else{
+                    jogador.passarRodada();
+                    System.out.println(jogador + jogador.passarRodada());
+                    passarRodada();
+                }
+            else System.out.println("celula ja selecionada");
+            
 
         } catch (InputMismatchException e ) {
             System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");

@@ -40,7 +40,6 @@ public class Jogador {
     }
 
     public String passarRodada(){
-        setPontos(getPontos() + 1);
         return "";
     }
     

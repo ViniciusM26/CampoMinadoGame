@@ -8,13 +8,13 @@ public class JogadorSingle extends Jogador {
     }
     
     public String encontrarBomba(){
-        setPontos(getPontos() - 3);
+        super.eliminado();
         return "Encontrou bomba! Você foi eliminado!";
     }
 
     public String passarRodada(){
         super.passarRodada();
-        return "Você não encontrou bomba!";
+        return "você não encontrou bomba!";
     }
     
 }

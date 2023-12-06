@@ -1,9 +1,9 @@
 package campoMinado.ModosJogo;
 
-public class objeto{
+public class CorpoRetorno{
         private int x,y, modo;
 
-        public objeto(int x, int y, int modo){
+        public CorpoRetorno(int x, int y, int modo){
             setX(x);
             setY(y);
             setModo(modo);

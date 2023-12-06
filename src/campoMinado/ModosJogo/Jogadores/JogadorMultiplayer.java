@@ -5,7 +5,7 @@ public class JogadorMultiplayer extends Jogador {
         super(nome);
     }
     public String encontrarBomba(){
-        super.eliminado();
+        setPontos(getPontos() - 3);
         return "Encontrou bomba! (perca 3 pontos)";
     }
 

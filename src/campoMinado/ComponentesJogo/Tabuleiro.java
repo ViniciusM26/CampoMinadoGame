@@ -97,7 +97,7 @@ public class Tabuleiro {
 						matriz[x][y].clicarCelula();
 						return true; // retorna verdadeiro se tem bomba
 					} else {
-						if (matriz[x][y] == null ) { // Verifica se já foi selecionado
+						if (matriz[x][y] == null){ // Verifica se já foi selecionado
 							int bombasAoRedor = contagemBombas(x, y); // Armazena a quantidade de bombas ao redor de uma célula
 							if (bombasAoRedor > 0) { // verifica o tipo da celula
 								matriz[x][y] = new CelulaVizinha(contagemBombas(x, y));
