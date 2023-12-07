@@ -45,7 +45,6 @@ public class Jogador {
     
     public String encontrarBomba(){
         return "";
-        //setPontos(getPontos() - 3);
     }
     @Override
     public String toString() {

@@ -96,9 +96,10 @@ public class Jogo {
                 return;
             }
             
-            if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){
+            if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
+
             if(getTabuleiro().getMatriz()[x][y] == null || !(getTabuleiro().getMatriz()[x][y].getClicado())){
                 if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
                     System.out.println(jogador + jogador.encontrarBomba());// imprime e retira os pontos

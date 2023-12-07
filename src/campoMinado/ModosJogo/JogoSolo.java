@@ -11,7 +11,6 @@ public class JogoSolo extends Jogo {
         
 		JogadorSingle jogador = new JogadorSingle("Bruno");
 		
-
 		while(getFuncionamentoJogo() == true){
 			rodadaPadrao(jogador);
 
@@ -22,4 +21,3 @@ public class JogoSolo extends Jogo {
 		}
 	}	
 }
-

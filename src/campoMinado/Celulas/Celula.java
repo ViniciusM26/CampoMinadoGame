@@ -1,30 +1,22 @@
 package campoMinado.Celulas;
 
+import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
+import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
+
 public class Celula {
-	
-	private boolean clicado;
-
-	public Celula(){
-		setClicado(false);
-	}
-	
-	public boolean getClicado (){
-		return this.clicado;
-	}
-	private void setClicado(boolean p1){
-		this.clicado = p1;
-	}
-		
-	public char getSimbolo(){// será subescrito nas subClasses
-		return ' ';
-	}
-
-	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeir
-
-	public void clicarCelula(){
-        if (getClicado() == false){
-            setClicado(true);
-        }
+    private CelulaAbstrata celulaSimples;
+    private CelulaMaluca celulaMaluca;
+    
+    public CelulaMaluca getCelulaMaluca() {
+        return celulaMaluca;
     }
-
+    public void setCelulaMaluca(CelulaMaluca celulaMaluca) {
+        this.celulaMaluca = celulaMaluca;
+    }
+    public CelulaAbstrata getCelulaSimples() {
+        return celulaSimples;
+    }
+    public void setCelulaSimples(CelulaAbstrata celulaSimples) {
+        this.celulaSimples = celulaSimples;
+    }
 }

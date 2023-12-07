@@ -4,7 +4,6 @@ public class JogadorSingle extends Jogador {
 
     public JogadorSingle(String nome) {
         super(nome);
-        
     }
     
     public String encontrarBomba(){

@@ -2,16 +2,17 @@ package campoMinado.ComponentesJogo;
 
 import java.util.Random;
 
-import campoMinado.Celulas.Bomba;
 import campoMinado.Celulas.Celula;
-import campoMinado.Celulas.CelulaVazia;
-import campoMinado.Celulas.CelulaVizinha;
+import campoMinado.Celulas.CelulaSimples.Bomba;
+import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
+import campoMinado.Celulas.CelulaSimples.CelulaVazia;
+import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 
 public class Tabuleiro {
 	
-	private Celula [][] matriz; 
+	private Celula[][] matriz;
 	private boolean[][] bandeiras;
-	private int tamanho ;
+	private int tamanho;
 	private int bombas;
 
 	public Tabuleiro(int p1, int p2) {
@@ -77,7 +78,7 @@ public class Tabuleiro {
 					if ((y + j) >= 0 && (y + j) < getTamanho()) {
 						// verifica se a posição analisada não é a propia celula
 						if(i != 0 || j != 0) {
-							if(!(matriz[x + i][y + j] == null) && (matriz[x + i][y + j] instanceof Bomba)) {	
+							if(!(matriz[x + i][y + j].getCelulaSimples() == null) && (matriz[x + i][y + j].getCelulaSimples() instanceof Bomba)) {	
 								contador++;
 							}
 						}	
@@ -89,22 +90,23 @@ public class Tabuleiro {
 	}
 
 	public boolean selecionar(int x, int y, int z) {
+		CelulaAbstrata celulaSelecao = matriz[x][y].getCelulaSimples();
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			//verifica se não é nulo ou é bomba
 			if (z == 0){
 				if (!(bandeiras[x][y])){// verifica se tem bandeira
-					if (!(this.matriz[x][y] == null) && this.matriz[x][y] instanceof Bomba) { 
-						matriz[x][y].clicarCelula();
+					if (!(this.matriz[x][y] == null) && celulaSelecao instanceof Bomba) { 
+						celulaSelecao.clicarCelula();
 						return true; // retorna verdadeiro se tem bomba
 					} else {
 						if (matriz[x][y] == null){ // Verifica se já foi selecionado
 							int bombasAoRedor = contagemBombas(x, y); // Armazena a quantidade de bombas ao redor de uma célula
 							if (bombasAoRedor > 0) { // verifica o tipo da celula
-								matriz[x][y] = new CelulaVizinha(contagemBombas(x, y));
-								matriz[x][y].clicarCelula(); // faz com que a celula seja clicada
+								celulaSelecao = new CelulaVizinha(contagemBombas(x, y));
+								celulaSelecao.clicarCelula(); // faz com que a celula seja clicada
 							} else {
-								matriz[x][y] = new CelulaVazia();
-								matriz[x][y].clicarCelula(); // faz com que a celula seja clicada
+								celulaSelecao = new CelulaVazia();
+								celulaSelecao.clicarCelula(); // faz com que a celula seja clicada
 								// seleção de todas as bombas ao redor
 								for (int i = -1; i < 2; i ++){ 
 									for(int j = -1; j < 2; j++){
@@ -118,21 +120,25 @@ public class Tabuleiro {
 				}
 			}else{
 				mudarBandeira(x, y); // inverte o boolean da bandeira
+				if(!(matriz[x][y].getCelulaMaluca() == null)){
+					// fazer o random para ver se vai mudar ou não
+				}
 			} 
+		
 		}
 		return false; // retorna falso por não ter bomba
 	}	
 	private void iniciarCelulas() {
 		Random rand = new Random(); // cria um random
-		
+
 		// sorteio de bombas
 		for (int i = 0; i < getBombas(); i++) {
 			int l = rand.nextInt(tamanho); // random em x
 			int c = rand.nextInt(tamanho); // random em y
 	
 			// Verifica se a célula na posição não é bomba
-			if (matriz[l][c] == null || !(matriz [l][c] instanceof Bomba)) { // pensar sobre modificação de posições para o jogo maluco
-				matriz[l][c] = new Bomba(); // coloca uma bomba no local
+			if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba)) { // pensar sobre modificação de posições para o jogo maluco
+				matriz[l][c].setCelulaSimples(new Bomba()); // coloca uma bomba no local
 			} else {
 				i--;
 			}
@@ -152,10 +158,10 @@ public class Tabuleiro {
 		for (int i = 0; i < tamanho; i++) {
 			for (int j = 0; j < tamanho; j++) {
 				if (!(bandeiras[i][j])){// verifica se tem bandeira no local
-					if (matriz[i][j] == null || matriz[i][j].getClicado() == false){
+					if (matriz[i][j] == null || matriz[i][j].getCelulaSimples().getClicado() == false){
 						str += "# "; // simbolo para não selecionados
 					}else {
-						str += matriz[i][j].getSimbolo(); // pega o simbolo por overwriting
+						str += matriz[i][j].getCelulaSimples().getSimbolo(); // pega o simbolo por overwriting
 						str += " "; // espaçamento
 					}
 				}else{
