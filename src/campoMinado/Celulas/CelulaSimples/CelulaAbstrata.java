@@ -1,4 +1,4 @@
-package campoMinado.Celulas;
+package campoMinado.Celulas.CelulaSimples;
 
 public abstract class CelulaAbstrata {
 	

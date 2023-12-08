@@ -3,7 +3,7 @@ package campoMinado.ModosJogo;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-
+import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 
@@ -68,7 +68,6 @@ public class Jogo {
         
         try {
             System.out.println(jogador+"\n0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
-
             modo = scanner.nextInt(); // terceiro input
 
             // tratamento da entrada para o valor ser valido
@@ -99,8 +98,9 @@ public class Jogo {
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
-
-            if(getTabuleiro().getMatriz()[x][y] == null || !(getTabuleiro().getMatriz()[x][y].getClicado())){
+            CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
+            
+            if(celulaSimples == null || !(celulaSimples.getClicado())){
                 if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
                     System.out.println(jogador + jogador.encontrarBomba());// imprime e retira os pontos
                 }else{
