@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CelulaMaluca {
     public CelulaMaluca() {
-        setGrauLoucura(1);;
+        setGrauLoucura(1);
     }
 
     private double grauLoucura;
@@ -14,7 +14,7 @@ public class CelulaMaluca {
     }
 
     public void setGrauLoucura(double grauLoucura) {
-        if (grauLoucura < 1 && grauLoucura > 0) // garante que o grau de loucura esteja entre 1 e 0
+        if (grauLoucura <= 1 && grauLoucura > 0) // garante que o grau de loucura esteja entre 1 e 0
             this.grauLoucura = grauLoucura;
     }
 

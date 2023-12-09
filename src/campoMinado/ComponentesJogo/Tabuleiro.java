@@ -120,19 +120,18 @@ public class Tabuleiro {
 				}
 			}else{
 				mudarBandeira(x, y); // inverte o boolean da bandeira
-
-				if(!(celulaSelecao.getCelulaMaluca() == null)){// verifica se a celula é maluca
-					if(celulaSelecao.getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
-						//alteração do estado
-						if(celulaSelecao.getCelulaSimples() == null) 
-							celulaSelecao.setCelulaSimples(new Bomba());
-						else
-							celulaSelecao.setCelulaSimples(null);
-						System.out.println("Celula alterada!");
+				if (!(getBandeiras()[x][y]))// verifica se está colocando ou tirando bandeira
+					if(!(celulaSelecao.getCelulaMaluca() == null)){// verifica se a celula é maluca
+						if(celulaSelecao.getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
+							//alteração do estado
+							if(celulaSelecao.getCelulaSimples() == null) 
+								celulaSelecao.setCelulaSimples(new Bomba());
+							else
+								celulaSelecao.setCelulaSimples(null);
+						}
 					}
-				}
+					
 			} 
-		
 		}
 		return false; // retorna falso por não ter bomba
 	}	
@@ -159,7 +158,7 @@ public class Tabuleiro {
 		for(int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++ ){
 				int aleatorio = rand.nextInt();
-				if(aleatorio % 2 == 0)
+				if(true)
 					matriz[i][j] = new Celula(new CelulaMaluca());
 				else
 					matriz[i][j] = new Celula(null);
