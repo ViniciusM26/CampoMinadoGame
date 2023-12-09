@@ -120,6 +120,7 @@ public class Tabuleiro {
 				}
 			}else{
 				mudarBandeira(x, y); // inverte o boolean da bandeira
+
 				if (!(getBandeiras()[x][y]))// verifica se está colocando ou tirando bandeira
 					if(!(celulaSelecao.getCelulaMaluca() == null)){// verifica se a celula é maluca
 						if(celulaSelecao.getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
@@ -130,11 +131,18 @@ public class Tabuleiro {
 								celulaSelecao.setCelulaSimples(null);
 						}
 					}
-					
+
 			} 
 		}
 		return false; // retorna falso por não ter bomba
 	}	
+	private void iniciarMatriz(){
+		for(int i = 0; i < getTamanho();i++){
+			for(int j = 0; j < getTamanho(); j ++ ){
+				matriz[i][j] = new Celula();
+			}
+		}
+	}
 
 	private void iniciarBombas(){
 		Random rand = new Random(); // cria um random
@@ -158,18 +166,18 @@ public class Tabuleiro {
 		for(int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++ ){
 				int aleatorio = rand.nextInt();
-				if(true)
-					matriz[i][j] = new Celula(new CelulaMaluca());
-				else
-					matriz[i][j] = new Celula(null);
-				
+				if(true) // seleção aleatoria das celulas malucas
+					matriz[i][j].setCelulaMaluca(new CelulaMaluca());
 			}
 		}
 	}
+
 	private void iniciarCelulas() {
+		iniciarMatriz();
 		iniciarCelulasMalucas();
 		iniciarBombas();
 	}
+
 	private void iniciarBandeiras(){
 		for (int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++){
