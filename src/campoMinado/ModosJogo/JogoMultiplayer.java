@@ -1,10 +1,11 @@
 package campoMinado.ModosJogo;
 
+import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 
 public class JogoMultiplayer extends Jogo {
 	public JogoMultiplayer() {
-		super();
+		setTabuleiro(new Tabuleiro(7, 7));
 	}
 
 

@@ -7,7 +7,7 @@ import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 
-public class Jogo {
+public abstract class Jogo {
     private boolean funcionamentoJogo;
 	private Tabuleiro tabuleiro;
 	private int rodadas;
@@ -40,7 +40,7 @@ public class Jogo {
         return this.tabuleiro;
     }
 
-    private void setTabuleiro(Tabuleiro p1){
+    protected void setTabuleiro(Tabuleiro p1){
         this.tabuleiro = p1;
     }
 
