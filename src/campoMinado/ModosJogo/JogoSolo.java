@@ -1,7 +1,7 @@
 package campoMinado.ModosJogo;
 
-import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
+import campoMinado.Tabuleiros.Tabuleiro;
 
 public class JogoSolo extends Jogo {
 	public JogoSolo(Tabuleiro tabuleiro) {

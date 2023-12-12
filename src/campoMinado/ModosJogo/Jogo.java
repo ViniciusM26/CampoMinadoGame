@@ -4,8 +4,8 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
-import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.Jogador;
+import campoMinado.Tabuleiros.Tabuleiro;
 
 public abstract class Jogo {
     private boolean funcionamentoJogo;
@@ -96,7 +96,7 @@ public abstract class Jogo {
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
-            
+
             CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
             
             if(celulaSimples == null || !(celulaSimples.getClicado())){

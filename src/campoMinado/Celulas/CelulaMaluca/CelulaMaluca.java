@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CelulaMaluca {
     public CelulaMaluca() {
-        setGrauLoucura(1);
+        setGrauLoucura(0.8);
     }
 
     private double grauLoucura;

@@ -1,4 +1,4 @@
-package campoMinado.ComponentesJogo;
+package campoMinado.Tabuleiros;
 
 import java.util.Random;
 

@@ -1,11 +1,11 @@
 package campoMinado;
 
-import campoMinado.ComponentesJogo.Tabuleiro;
-import campoMinado.ComponentesJogo.TabuleiroMaluco;
 import campoMinado.ModosJogo.Jogo;
 import campoMinado.ModosJogo.JogoMaluco;
 import campoMinado.ModosJogo.JogoMultiplayer;
 import campoMinado.ModosJogo.JogoSolo;
+import campoMinado.Tabuleiros.Tabuleiro;
+import campoMinado.Tabuleiros.TabuleiroMaluco;
 
 public class CampoMinado {
 
