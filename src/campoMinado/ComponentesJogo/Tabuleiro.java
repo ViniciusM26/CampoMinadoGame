@@ -107,8 +107,8 @@ public class Tabuleiro {
 				}
 				else
 					clicarBandeira(x, y); // inverte o boolean da bandeira
-				
-		} 
+
+		}
 		return false; // retorna falso por não ter bomba
 	}	
 	private void iniciarMatriz(){

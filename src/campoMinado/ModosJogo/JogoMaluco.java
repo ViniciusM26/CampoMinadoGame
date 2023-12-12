@@ -3,15 +3,15 @@ package campoMinado.ModosJogo;
 import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 
-public class JogoSolo extends Jogo {
-	public JogoSolo(Tabuleiro tabuleiro) {
-		super(tabuleiro);
-	}
+public class JogoMaluco extends Jogo {
+    public JogoMaluco(Tabuleiro tabuleiro){
+        super(tabuleiro);
+    }
 
-	@Override
-	public void Jogar(){
+    @Override
+    public void Jogar(){
 		inciarJogo();
-        
+
 		JogadorSingle jogador = new JogadorSingle("Bruno");
 		
 		while(getFuncionamentoJogo() == true){
@@ -22,5 +22,5 @@ public class JogoSolo extends Jogo {
 				pararJogo();
 			}
 		}
-	}	
+	}
 }

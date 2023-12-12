@@ -20,9 +20,7 @@ public abstract class CelulaAbstrata {
 	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeir
 
 	public void clicarCelula(){
-        if (getClicado() == false){
-            setClicado(true);
-        }
+        setClicado(true);
     }
 
 }

@@ -4,11 +4,11 @@ import campoMinado.ComponentesJogo.Tabuleiro;
 import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 
 public class JogoMultiplayer extends Jogo {
-	public JogoMultiplayer() {
-		setTabuleiro(new Tabuleiro(7, 7));
+	public JogoMultiplayer(Tabuleiro tabueleiro) {
+		super(tabueleiro);
 	}
 
-
+	@Override
 	public void Jogar(){
 		inciarJogo();
 		JogadorMultiplayer jogador1 = new JogadorMultiplayer("Bruno");

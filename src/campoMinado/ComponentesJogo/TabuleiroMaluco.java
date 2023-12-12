@@ -5,6 +5,8 @@ import java.util.Random;
 import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
 import campoMinado.Celulas.CelulaSimples.Bomba;
+import campoMinado.Celulas.CelulaSimples.CelulaVazia;
+import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 
 public class TabuleiroMaluco extends Tabuleiro{
 
@@ -17,7 +19,7 @@ public class TabuleiroMaluco extends Tabuleiro{
 		for(int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++ ){
 				int aleatorio = rand.nextInt();
-				if((aleatorio % 2) == 0) // seleção aleatoria das celulas malucas
+				if(true) // seleção aleatoria das celulas malucas
 					getMatriz()[i][j].setCelulaMaluca(new CelulaMaluca());
 			}
 		}
@@ -27,20 +29,43 @@ public class TabuleiroMaluco extends Tabuleiro{
 		super.iniciarCelulas(); // inicializa com conf padrão
         iniciarCelulasMalucas(); // inicializa com as malucas
 	}
+
 	public void clicarBandeira(int x, int y){
-		super.clicarBandeira(x, y);
-		Celula celulaSelecao = getMatriz()[x][y]; 
+		Celula celulaSelecao = getMatriz()[x][y]; // cria uma referencia para a celula a ser modificada
+
 		if (!(celulaSelecao.isBandeira()))// verifica se está colocando ou tirando bandeira
-					if(!(celulaSelecao.getCelulaMaluca() == null)){// verifica se a celula é maluca
-						if(celulaSelecao.getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
-							//alteração do estado
-							if(celulaSelecao.getCelulaSimples() == null) 
-								celulaSelecao.setCelulaSimples(new Bomba());
-							else
-								celulaSelecao.setCelulaSimples(null);
-						}
+			if(!(celulaSelecao.getCelulaMaluca() == null)){// verifica se a celula é maluca
+				System.out.println("essa celula é maluca");
+				if(celulaSelecao.getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
+					//alteração do estado
+					if(celulaSelecao.getCelulaSimples() == null){ 
+						celulaSelecao.setCelulaSimples(new Bomba());
+					}else{
+						celulaSelecao.setCelulaSimples(null);
 					}
 
+					for(int i = -1; i < 2; i++){ //percorre as 3 posições x
+						if ((x + i) >= 0 && (x + i) < getTamanho()){ //verifica se o valor é válido
+							for(int j = -1; j < 2; j ++ ){ //percorre as 3 posições y
+								if((y+j) >= 0 && (y + j) < getTamanho()) {// verifica se o valor é válido
+									celulaSelecao = getMatriz()[x+i][y+j];
+									if((!(celulaSelecao.getCelulaSimples() == null)) && celulaSelecao.getCelulaSimples().getClicado()){// verifica se a celula ja foi clicada
+										int bombasAoRedor = contagemBombas(x+i, y+j);		
+										if (bombasAoRedor > 0)// verifica se tem bombas ao redor
+											celulaSelecao.setCelulaSimples(new CelulaVizinha(bombasAoRedor)); // atualiza a celula
+										else 
+											celulaSelecao.setCelulaSimples(new CelulaVazia()); // atualiza a celula
+
+										celulaSelecao.getCelulaSimples().clicarCelula();// coloca a celula como clicada
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		
+		super.clicarBandeira(x, y); // chama o padrão para mudança de bandeira
 	}
 
     

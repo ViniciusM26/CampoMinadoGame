@@ -12,13 +12,11 @@ public abstract class Jogo {
 	private Tabuleiro tabuleiro;
 	private int rodadas;
 
-    public Jogo(){
-		setTabuleiro(new Tabuleiro(7,7));
+    public Jogo (Tabuleiro tabuleiro){
+        setTabuleiro(tabuleiro);
     }
 
-    public void Jogar(){
-
-    }
+    public abstract void Jogar();
 
     public int getRodadas() {
 		return rodadas;
@@ -98,6 +96,7 @@ public abstract class Jogo {
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
+            
             CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
             
             if(celulaSimples == null || !(celulaSimples.getClicado())){
