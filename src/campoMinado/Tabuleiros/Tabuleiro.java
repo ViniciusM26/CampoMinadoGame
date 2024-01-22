@@ -6,21 +6,30 @@ import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaSimples.Bomba;
 import campoMinado.Celulas.CelulaSimples.CelulaVazia;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
+import campoMinado.Interfaces.TabuleiroInterface;
 
-public class Tabuleiro {
+public class Tabuleiro implements TabuleiroInterface {
 	
 	private Celula[][] matriz;
 	private int tamanho;
 	private int bombas;
 
 	public Tabuleiro(int p1, int p2) {
+		
 		this.setTamanho(p1);
 		this.setBombas(p2);
-
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
 		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
 
 	}
+
+	@Override
+    public void inicializar(int tamanho, int bombas) {
+        this.setTamanho(tamanho);
+        this.setBombas(bombas);
+        this.setMatriz(new Celula[getTamanho()][getTamanho()]);
+        iniciarCelulas();
+    }
 
 	private void setMatriz(Celula [][] matriz){
 		this.matriz = matriz;
@@ -69,6 +78,7 @@ public class Tabuleiro {
 		return contador;
 	}
 
+	@Override
 	public boolean clicarCelula(int x, int y){
 		Celula celulaSelecao = getMatriz()[x][y];
 			if (!(celulaSelecao.getCelulaSimples() == null) && celulaSelecao.getCelulaSimples() instanceof Bomba) { 
@@ -95,10 +105,12 @@ public class Tabuleiro {
 			}
 		}
 	
+	@Override
 	public void clicarBandeira(int x, int y){
 		getMatriz()[x][y].trocarBandeira();
 	}
 
+	@Override
 	public boolean selecionar(int x, int y, int z) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			if( getMatriz()[x][y].getCelulaSimples() == null || !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
