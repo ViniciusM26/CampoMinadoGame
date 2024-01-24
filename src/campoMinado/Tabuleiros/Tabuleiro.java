@@ -114,15 +114,20 @@ public class Tabuleiro implements TabuleiroInterface {
 	public boolean selecionar(int x, int y, int z) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			if( getMatriz()[x][y].getCelulaSimples() == null || !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
-				if (z == 0){
-					return clicarCelula(x, y);
+				
+			if (z == 0){
+				if (getMatriz()[x][y].isBandeira()) { // verifica se a célula tem bandeira
+					return false; // se tiver bandeira, ignora a seleção
 				}
-				else
-					clicarBandeira(x, y); // inverte o boolean da bandeira
+				return clicarCelula(x, y);
+			}
+			else
+				clicarBandeira(x, y); // inverte o boolean da bandeira
 
 		}
 		return false; // retorna falso por não ter bomba
 	}	
+
 	private void iniciarMatriz(){
 		for(int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++ ){
