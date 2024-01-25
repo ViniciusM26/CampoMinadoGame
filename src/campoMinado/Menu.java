@@ -14,7 +14,6 @@ public class Menu {
 
         try{
             int modo = scanner.nextInt();
-            scanner.close();
             return modo;
         }
 
@@ -23,7 +22,6 @@ public class Menu {
         catch (InputMismatchException e ) {
             	System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
 				scanner.nextLine();
-                scanner.close();
                 return -1;
 			}
 
