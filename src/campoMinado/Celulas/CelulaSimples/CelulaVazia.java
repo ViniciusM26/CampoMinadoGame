@@ -1,6 +1,6 @@
-package campoMinado.Celulas;
+package campoMinado.Celulas.CelulaSimples;
 
-public class CelulaVazia extends Celula {
+public class CelulaVazia extends CelulaAbstrata {
     private char simbolo;
 
     public CelulaVazia () {

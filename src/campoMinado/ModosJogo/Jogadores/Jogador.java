@@ -1,4 +1,4 @@
-package campoMinado.Jogos;
+package campoMinado.ModosJogo.Jogadores;
 
 public class Jogador {
     private String nome;
@@ -15,7 +15,7 @@ public class Jogador {
         return jogando;
     }
 
-    private void setJogando(boolean jogando) {
+    protected void setJogando(boolean jogando) {
         this.jogando = jogando;
     }
 
@@ -23,7 +23,7 @@ public class Jogador {
         return pontos;
     }
 
-    private void setPontos(int pontos) {
+    protected void setPontos(int pontos) {
         this.pontos = pontos;
     }
 
@@ -37,6 +37,14 @@ public class Jogador {
 
     public void eliminado(){ // função que altera o estado do jogador
         setJogando(false);
+    }
+
+    public String passarRodada(){
+        return "";
+    }
+    
+    public String encontrarBomba(){
+        return "";
     }
     @Override
     public String toString() {
