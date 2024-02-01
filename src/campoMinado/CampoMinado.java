@@ -1,7 +1,6 @@
 package campoMinado;
 
-import java.util.InputMismatchException;
-
+import campoMinado.Exceptions.MenuInputException;
 import campoMinado.ModosJogo.Jogo;
 import campoMinado.ModosJogo.JogoMaluco;
 import campoMinado.ModosJogo.JogoMultiplayer;
@@ -16,14 +15,14 @@ public class CampoMinado {
 		Jogo jogo; // função que cria o objeto jogo multiplayer
 		int modo;
 		Tabuleiro tabuleiro;
-
-		try {
-			modo = Menu.rodarMenu();
-		} catch (InputMismatchException e) {
-			System.out.println("Erro: " + e.getMessage());
-			return;
+		while(true){
+			try {
+				modo = Menu.rodarMenu();
+				break;		
+			}catch (MenuInputException e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
 		}
-		
 		switch (modo) {
 			case 1:
 				tabuleiro = new Tabuleiro(7,7); // cria o tabuleiro
@@ -40,12 +39,10 @@ public class CampoMinado {
 				tabuleiro = new TabuleiroMaluco(7, 7); // cria o tabuleiro
 				jogo = new JogoMaluco(tabuleiro);
 				jogo.Jogar();// função que joga
-
-			default:
-				System.out.println("valor inválido");
 				break;
 		}
-
+		
+		
 	}
 
 }

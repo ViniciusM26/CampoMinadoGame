@@ -3,28 +3,24 @@ package campoMinado;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import campoMinado.Exceptions.MenuInputException;
+
 public class Menu {
 
-    public static int rodarMenu(){
-
-        System.out.println("Olá, escolha o modo de jogo:\n1.Solo\n2.Multijogador\n3.Maluco"); //imprime as opções na tela
+    public static int rodarMenu() throws MenuInputException{
+        System.out.println("Olá, escolha o modo de jogo:\n1.Solo\n2.Multijogador\n3.Maluco"); // imprime as opções na tela
         Scanner scanner = new Scanner(System.in);
 
         // tenta fazer a entrada
-
-        try{
+        try {
             int modo = scanner.nextInt();
+            if(modo > 3 || modo < 0) throw new MenuInputException();
             return modo;
+        } catch (InputMismatchException e) {
+            throw new MenuInputException();
         }
-
-        // se der erro avisa o usuario e acaba o programa
-
-        catch (InputMismatchException e ) {
-            	System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
-				scanner.nextLine();
-                return -1;
-			}
-
+        finally{
+            scanner.nextLine(); // Limpa o buffer do scanner
+        }
     }
-
 }

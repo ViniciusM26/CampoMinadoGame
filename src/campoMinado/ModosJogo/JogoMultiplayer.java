@@ -1,5 +1,6 @@
 package campoMinado.ModosJogo;
 
+import campoMinado.Exceptions.InputException;
 import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 import campoMinado.Tabuleiros.Tabuleiro;
 
@@ -21,8 +22,11 @@ public class JogoMultiplayer extends Jogo {
 				jogadorDaRodada = jogador1;
 			else
 				jogadorDaRodada = jogador2;
-
+			try{
 			rodadaPadrao(jogadorDaRodada);
+			}catch(InputException e){
+				System.out.println( e.getMessage());
+			}
 			System.out.println((jogadorDaRodada.getPontos()));
 		}
 	}	

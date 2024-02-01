@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.Tabuleiros.Tabuleiro;
+import campoMinado.Exceptions.InputException;
+import campoMinado.Exceptions.MenuInputException;
 
 public abstract class Jogo {
     private boolean funcionamentoJogo;
@@ -23,7 +25,9 @@ public abstract class Jogo {
 	}
 
 	private void setRodadas(int rodadas) {
-		this.rodadas = rodadas;
+		if (rodadas >= 0)
+            this.rodadas = rodadas;
+        else throw new IllegalArgumentException("Numero de rodadas invalida");
 	}
 	
     public boolean getFuncionamentoJogo() {
@@ -55,7 +59,7 @@ public abstract class Jogo {
 		setFuncionamentoJogo(false);
 	}
 
-    protected void rodadaPadrao(Jogador jogador){
+    protected void rodadaPadrao  (Jogador jogador) throws InputException{
         
         Scanner scanner = new Scanner(System.in);// inicializa o scanner
 
@@ -69,28 +73,25 @@ public abstract class Jogo {
             modo = scanner.nextInt(); // terceiro input
 
             // tratamento da entrada para o valor ser valido
-            if(modo < 1) 
-                modo = 0;
-            else if (modo > 1){
+            if(modo < 0 || modo > 2) 
+                throw new InputException();
+            else if (modo == 2){
                 pararJogo();
                 scanner.close();
                 return;
-            }else
-                modo = 1;
+            }
             
             System.out.print("\nDigite a linha: "); // instruções para o console
 
             x = scanner.nextInt(); // primeiro input
             if (x < 0 || x > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                System.out.println("Digite um valor valido!");
-                return;
+                throw new InputException();
             }
             System.out.print("Digite a coluna: ");  // instruções para o console
 
             y = scanner.nextInt(); // Segundo input
             if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                System.out.println("Digite um valor valido!");
-                return;
+                throw new InputException();
             }
             
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
@@ -112,9 +113,7 @@ public abstract class Jogo {
             
 
         } catch (InputMismatchException e ) {
-            System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
-            scanner.nextLine();
-            return;
+            throw new InputException();
         } 
     } 
 }
