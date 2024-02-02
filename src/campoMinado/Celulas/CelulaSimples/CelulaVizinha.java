@@ -17,10 +17,10 @@ public class CelulaVizinha extends CelulaAbstrata {
     }
 
     public void setContagemBombas(int contador){
-        if(contador > 0 && contador < 9) // verifica se a entrada é válida
+        if(contador < 0 || contador > 9) // verifica se a entrada é válida
             this.contagemBombas = contador;
         else
-            throw new IllegalArgumentException("Contagem inválida");
+            throw new IllegalArgumentException("Erro: Contagem inválida");
     }
    
 }

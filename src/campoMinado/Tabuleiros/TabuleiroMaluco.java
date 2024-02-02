@@ -4,7 +4,6 @@ import java.util.Random;
 
 import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
-import campoMinado.Celulas.CelulaSimples.Bomba;
 import campoMinado.Celulas.CelulaSimples.CelulaVazia;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 

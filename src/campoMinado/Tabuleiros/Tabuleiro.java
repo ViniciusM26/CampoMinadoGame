@@ -16,8 +16,8 @@ public class Tabuleiro implements TabuleiroInterface {
 
 	public Tabuleiro(int p1, int p2) {
 		
-		this.setTamanho(p1);
-		this.setBombas(p2);
+		setTamanho(p1);
+		setBombas(p2);
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
 		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
 

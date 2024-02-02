@@ -4,7 +4,11 @@ import java.util.Random;
 
 public class CelulaMaluca {
     public CelulaMaluca() {
+        try{
         setGrauLoucura(0.8);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private double grauLoucura;
@@ -14,8 +18,9 @@ public class CelulaMaluca {
     }
 
     public void setGrauLoucura(double grauLoucura) {
-        if (grauLoucura <= 1 && grauLoucura > 0) // garante que o grau de loucura esteja entre 1 e 0
-            this.grauLoucura = grauLoucura;
+        if (grauLoucura >= 1 || grauLoucura < 0) // garante que o grau de loucura esteja entre 1 e 0
+            throw new IllegalArgumentException("Erro: grau de loucura inválido");
+        this.grauLoucura = grauLoucura;
     }
 
     public boolean clicarCelula(){
