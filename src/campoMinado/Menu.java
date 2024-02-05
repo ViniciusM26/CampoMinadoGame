@@ -8,7 +8,6 @@ import campoMinado.Exceptions.MenuInputException;
 public class Menu {
 
     public static int rodarMenu() throws MenuInputException{
-        System.out.println("Olá, escolha o modo de jogo:\n1.Solo\n2.Multijogador\n3.Maluco"); // imprime as opções na tela
         Scanner scanner = new Scanner(System.in);
 
         // tenta fazer a entrada

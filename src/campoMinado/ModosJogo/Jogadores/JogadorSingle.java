@@ -13,7 +13,7 @@ public class JogadorSingle extends Jogador {
 
     public String passarRodada(){
         super.passarRodada();
-        return "você não encontrou bomba!";
+        return "Você não encontrou bomba!";
     }
     
 }

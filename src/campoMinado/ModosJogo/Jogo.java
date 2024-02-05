@@ -7,7 +7,6 @@ import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.Tabuleiros.Tabuleiro;
 import campoMinado.Exceptions.InputException;
-import campoMinado.Exceptions.MenuInputException;
 
 public abstract class Jogo {
     private boolean funcionamentoJogo;
@@ -93,7 +92,7 @@ public abstract class Jogo {
             if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
                 throw new InputException();
             }
-            
+            //obs: testar de maneira pratica!
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }

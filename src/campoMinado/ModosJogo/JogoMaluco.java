@@ -17,7 +17,7 @@ public class JogoMaluco extends Jogo {
 		
 		while(getFuncionamentoJogo() == true){
 			try{
-			rodadaPadrao(jogador);
+				rodadaPadrao(jogador);
 			}catch (InputException e){
 				System.out.println( e.getMessage());
 			}
