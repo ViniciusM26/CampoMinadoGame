@@ -11,6 +11,7 @@ import campoMinado.Tabuleiros.TabuleiroMaluco;
 public class CampoMinado {
 
 	public static void main(String[] args) {
+		
 		// criar os jogadores
 		Jogo jogo; // função que cria o objeto jogo multiplayer
 		int modo;
@@ -39,6 +40,7 @@ public class CampoMinado {
 					System.out.println("Erro: " + e.getMessage());
 				}
 			}
+			
 			switch (modo) {
 				case 1:
 					tabuleiro = new Tabuleiro(dificuldade); // cria o tabuleiro

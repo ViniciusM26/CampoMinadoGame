@@ -8,6 +8,7 @@ import campoMinado.Exceptions.MenuInputException;
 public class Menu {
 
     public static int rodarMenu() throws MenuInputException{
+    	
         Scanner scanner = new Scanner(System.in);
 
         // tenta fazer a entrada

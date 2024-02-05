@@ -1,6 +1,7 @@
 package campoMinado.ModosJogo.Jogadores;
 
 public class Jogador {
+	
     private String nome;
     private int pontos;
     private boolean jogando;
@@ -46,6 +47,7 @@ public class Jogador {
     public String encontrarBomba(){
         return "";
     }
+    
     @Override
     public String toString() {
         String str = "";

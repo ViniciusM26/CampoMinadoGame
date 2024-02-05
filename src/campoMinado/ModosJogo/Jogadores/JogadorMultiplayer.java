@@ -1,6 +1,7 @@
 package campoMinado.ModosJogo.Jogadores;
 
 public class JogadorMultiplayer extends Jogador {
+	
     public JogadorMultiplayer(String nome) {
         super(nome);
     }

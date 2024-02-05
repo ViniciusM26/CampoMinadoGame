@@ -5,6 +5,7 @@ import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 import campoMinado.Tabuleiros.Tabuleiro;
 
 public class JogoMultiplayer extends Jogo {
+	
 	public JogoMultiplayer(Tabuleiro tabueleiro) {
 		super(tabueleiro);
 	}

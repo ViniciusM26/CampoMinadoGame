@@ -3,6 +3,7 @@ package campoMinado.Celulas.CelulaSimples;
 public class CelulaVizinha extends CelulaAbstrata {
 
     private int contagemBombas;
+    
     public CelulaVizinha (int contagemBombas) {
         super();
         setContagemBombas(contagemBombas);

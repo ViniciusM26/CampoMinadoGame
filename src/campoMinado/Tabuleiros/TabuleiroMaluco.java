@@ -8,7 +8,7 @@ import campoMinado.Celulas.CelulaSimples.CelulaVazia;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 
 public class TabuleiroMaluco extends Tabuleiro{
-	double grauDeLoucura;
+	private double grauDeLoucura;
 
     public double getGrauDeLoucura() {
 		return grauDeLoucura;

@@ -9,6 +9,7 @@ import campoMinado.Tabuleiros.Tabuleiro;
 import campoMinado.Exceptions.InputException;
 
 public abstract class Jogo {
+	
     private boolean funcionamentoJogo;
 	private Tabuleiro tabuleiro;
 	private int rodadas;

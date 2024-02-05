@@ -54,19 +54,19 @@ public class Tabuleiro implements TabuleiroInterface {
 	}
 
 	public int getTamanho(){
-	return this.tamanho;
+		return this.tamanho;
 	}
 
 	private void setTamanho(int p1){
-	this.tamanho = p1;
+		this.tamanho = p1;
 	}
 
 	public int getBombas(){
-	return this.bombas;
+		return this.bombas;
 	}
 
 	private void setBombas(int p1){
-	this.bombas = p1;
+		this.bombas = p1;
 	}
 
 	public int contagemBombas(int x, int y){

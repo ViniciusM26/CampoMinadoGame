@@ -5,6 +5,7 @@ import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 import campoMinado.Tabuleiros.Tabuleiro;
 
 public class JogoSolo extends Jogo {
+	
 	public JogoSolo(Tabuleiro tabuleiro) {
 		super(tabuleiro);
 	}

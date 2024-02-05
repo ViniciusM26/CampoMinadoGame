@@ -17,8 +17,6 @@ public abstract class CelulaAbstrata {
 		
 	public abstract char getSimbolo();
 
-	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeir
-
 	public void clicarCelula(){
         setClicado(true);
     }
