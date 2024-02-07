@@ -11,7 +11,7 @@ import campoMinado.Tabuleiros.TabuleiroMaluco;
 
 public class CampoMinado {
 
-	public static void main(String[] args) {
+	public void jogar() {
 		// criar os jogadores
 		Jogo jogo; // função que cria o objeto jogo multiplayer
 		int modo;
