@@ -8,7 +8,7 @@ public class CelulaMaluca {
 	 
     public CelulaMaluca() {
         try{
-        setGrauLoucura(0.8);
+            setGrauLoucura(0.8);
         }catch(IllegalArgumentException e){
             System.out.println(e.getMessage());
         }

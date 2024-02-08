@@ -59,7 +59,7 @@ public abstract class Jogo {
 		setFuncionamentoJogo(false);
 	}
 
-    protected void rodadaPadrao  (Jogador jogador) throws InputException{
+    protected void rodadaPadrao(Jogador jogador) throws InputException{
         
         Scanner scanner = new Scanner(System.in);// inicializa o scanner
 
