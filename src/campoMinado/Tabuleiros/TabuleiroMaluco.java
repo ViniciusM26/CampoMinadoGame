@@ -4,7 +4,6 @@ import java.util.Random;
 
 import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
-import campoMinado.Celulas.CelulaSimples.Bomba;
 import campoMinado.Celulas.CelulaSimples.CelulaVazia;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 
@@ -25,8 +24,8 @@ public class TabuleiroMaluco extends Tabuleiro{
 		}
 	}
 
-    protected void iniciarCelulas() {
-		super.iniciarCelulas(); // inicializa com conf. padrão
+    protected void iniciarCelulas(int x, int y) {
+		super.iniciarCelulas(x,y); // inicializa com conf. padrão
         iniciarCelulasMalucas(); // inicializa com as malucas
 	}
 

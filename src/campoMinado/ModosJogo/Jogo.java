@@ -82,21 +82,20 @@ public abstract class Jogo {
 
             x = scanner.nextInt(); // primeiro input
             if (x < 0 || x > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                System.out.println("Digite um valor valido!");
-                return;
+                throw new InputMismatchException("valor inválido");
             }
             System.out.print("Digite a coluna: ");  // instruções para o console
 
             y = scanner.nextInt(); // Segundo input
             if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                System.out.println("Digite um valor valido!");
-                return;
+                throw new InputMismatchException("valor inválido");
             }
             
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
-
+            if(getRodadas()==0)
+                getTabuleiro().iniciarBombas(x,y);
             CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
             
             if(celulaSimples == null || !(celulaSimples.getClicado())){

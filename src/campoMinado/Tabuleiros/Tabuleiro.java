@@ -14,12 +14,16 @@ public class Tabuleiro implements TabuleiroInterface {
 	private int tamanho;
 	private int bombas;
 
-	public Tabuleiro(int p1, int p2) {
+	public Tabuleiro(int tamanho, int bombas) {
 		
-		this.setTamanho(p1);
-		this.setBombas(p2);
-	    setMatriz(new Celula[getTamanho()][getTamanho()]);
-		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
+		this.setTamanho(tamanho);
+		if(!(bombas > tamanho * tamanho))
+			this.setBombas(bombas);
+		else{ 
+			setBombas((tamanho*tamanho)-1);
+	    }
+		setMatriz(new Celula[getTamanho()][getTamanho()]);
+		iniciarMatriz();
 
 	}
 
@@ -28,7 +32,6 @@ public class Tabuleiro implements TabuleiroInterface {
         this.setTamanho(tamanho);
         this.setBombas(bombas);
         this.setMatriz(new Celula[getTamanho()][getTamanho()]);
-        iniciarCelulas();
     }
 
 	private void setMatriz(Celula [][] matriz){
@@ -136,7 +139,7 @@ public class Tabuleiro implements TabuleiroInterface {
 		}
 	}
 
-	private void iniciarBombas(){
+	public void iniciarBombas(int x, int y){// recebe o primeiro click
 		Random rand = new Random(); // cria um random
 
 		// sorteio de bombas
@@ -144,8 +147,8 @@ public class Tabuleiro implements TabuleiroInterface {
 			int l = rand.nextInt(tamanho); // random em x
 			int c = rand.nextInt(tamanho); // random em y
 	
-			// Verifica se a célula na posição não é bomba
-			if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba)) { // pensar sobre modificação de posições para o jogo maluco
+			// Verifica se a célula na posição não é bomba ou se colocará bomba no primeiro clicl
+			if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba) || !(l == x && y == c) ) { // pensar sobre modificação de posições para o jogo maluco
 				matriz[l][c].setCelulaSimples(new Bomba()); // coloca uma bomba no local
 			} else {
 				i--;
@@ -153,9 +156,8 @@ public class Tabuleiro implements TabuleiroInterface {
 		}	
 	}
 
-	protected void iniciarCelulas() {
+	protected void iniciarCelulas(int x, int y) {
 		iniciarMatriz();
-		iniciarBombas();
 	}
 
 	@Override
