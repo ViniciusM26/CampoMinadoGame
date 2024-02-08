@@ -97,7 +97,10 @@ public abstract class Jogo {
             if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
                 pararJogo();
             }
-
+            if(getRodadas() == 0){
+                System.out.println("oi");
+                getTabuleiro().iniciarBombas(x, y);
+            }
             CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
             
             if(celulaSimples == null || !(celulaSimples.getClicado())){
