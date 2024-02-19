@@ -4,29 +4,17 @@ import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
 import campoMinado.Celulas.CelulaSimples.Bomba;
 import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 
-<<<<<<< Updated upstream
-public class Celula {
-	
-	private CelulaAbstrata celulaSimples;
-    private CelulaMaluca celulaMaluca;
-    private boolean bandeira;
-    
-=======
 public class Celula{
->>>>>>> Stashed changes
     public Celula() {
 
     }
     
-<<<<<<< Updated upstream
-=======
     private CelulaAbstrata celulaSimples;
 
     private CelulaMaluca celulaMaluca;
     
     private boolean bandeira;
     
->>>>>>> Stashed changes
     public boolean isBandeira() {
         return bandeira;
     }

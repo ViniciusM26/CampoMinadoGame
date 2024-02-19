@@ -17,11 +17,8 @@ public abstract class CelulaAbstrata {
 		
 	public abstract char getSimbolo();
 
-<<<<<<< Updated upstream
-=======
 	// Caso tenha uma bandeira na celula ele retira, caso não tenha ele adiciona uma bandeira
 
->>>>>>> Stashed changes
 	public void clicarCelula(){
         setClicado(true);
     }
