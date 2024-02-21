@@ -38,6 +38,15 @@ public class Jogador {
     public void eliminado(){ // função que altera o estado do jogador
         setJogando(false);
     }
+    
+    public String getIniciais(){
+        String[] nomes = getNome().split(" ");
+        StringBuilder iniciais = new StringBuilder();
+        for (String nome : nomes) {
+            iniciais.append(nome.charAt(0));
+        }
+        return iniciais.toString().toUpperCase();
+    }
 
     public String passarRodada(){
         return "";
