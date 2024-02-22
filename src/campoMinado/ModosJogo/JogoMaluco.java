@@ -9,13 +9,13 @@ public class JogoMaluco extends Jogo {
     }
 
     @Override
-    public void Jogar(){
+    public void Jogar(int x, int y){
 		inciarJogo();
 
 		JogadorSingle jogador = new JogadorSingle("Bruno");
 		
 		while(getFuncionamentoJogo() == true){
-			rodadaPadrao(jogador);
+			rodadaPadrao(jogador, x, y);
 
 			if(!(jogador.isJogando())){
 				System.out.println(getTabuleiro());

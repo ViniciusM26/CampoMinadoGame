@@ -23,7 +23,7 @@ public class Jogador {
         return pontos;
     }
 
-    protected void setPontos(int pontos) {
+    public void setPontos(int pontos) {
         this.pontos = pontos;
     }
 

@@ -14,10 +14,10 @@ public class Tabuleiro implements TabuleiroInterface {
 	private int tamanho;
 	private int bombas;
 
-	public Tabuleiro(int p1, int p2) {
+	public Tabuleiro(int tamanho, int bombas) {
 		
-		this.setTamanho(p1);
-		this.setBombas(p2);
+		this.setTamanho(tamanho);
+		this.setBombas(bombas);
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
 		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
 
@@ -96,7 +96,7 @@ public class Tabuleiro implements TabuleiroInterface {
 						// seleção de todas as bombas ao redor
 						for (int i = -1; i < 2; i ++){ 
 							for(int j = -1; j < 2; j++){
-								selecionar(x + i, y + j, 0);
+								selecionar(x + i, y + j);
 							}
 						}
 					}
@@ -111,20 +111,12 @@ public class Tabuleiro implements TabuleiroInterface {
 	}
 
 	@Override
-	public boolean selecionar(int x, int y, int z) {
+	public boolean selecionar(int x, int y) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
-			if( getMatriz()[x][y].getCelulaSimples() == null || !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
-				
-			if (z == 0){
-				if (getMatriz()[x][y].isBandeira()) { // verifica se a célula tem bandeira
-					return false; // se tiver bandeira, ignora a seleção
-				}
+			if( getMatriz()[x][y].getCelulaSimples() == null|| !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
 				return clicarCelula(x, y);
+			
 			}
-			else
-				clicarBandeira(x, y); // inverte o boolean da bandeira
-
-		}
 		return false; // retorna falso por não ter bomba
 	}	
 

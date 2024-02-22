@@ -1,26 +1,31 @@
 package campoMinado.ModosJogo;
 
+import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 import campoMinado.Tabuleiros.Tabuleiro;
 
 public class JogoSolo extends Jogo {
+	JogadorSingle jogador;
+	public JogadorSingle getJogador() {
+		return jogador;
+	}
+
+	public void setJogador(JogadorSingle jogador) {
+		this.jogador = jogador;
+	}
+
 	public JogoSolo(Tabuleiro tabuleiro) {
 		super(tabuleiro);
+		setJogador(new JogadorSingle("Bruno"));
+		inciarJogo();
 	}
 
 	@Override
-	public void Jogar(){
-		inciarJogo();
-        
-		JogadorSingle jogador = new JogadorSingle("Bruno");
-		
-		while(getFuncionamentoJogo() == true){
-			rodadaPadrao(jogador);
-
-			if(!(jogador.isJogando())){
-				System.out.println(getTabuleiro());
-				pararJogo();
-			}
+	public void Jogar(Jogador jogador,int row, int col){
+		if(rodadaPadrao(jogador, row, col)){
+			jogador.passarRodada();
+		}else{
+			jogador.encontrarBomba();
 		}
 	}	
 }
