@@ -1,4 +1,5 @@
 package campoMinado.GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,19 +10,19 @@ public class DificuldadeGUI {
 
         JPanel panel = new JPanel();
 
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(new GridLayout(3, 1)); // Reduzindo para 3 para os botões principais
         panel.setSize(400, 400);
 
-        JButton jogarButton = new JButton("Jogar");
-        JButton creditosButton = new JButton("Créditos");
-        JButton sairButton = new JButton("Sair");
+        JButton easyButton = new JButton("Fácil");
+        JButton mediumButton = new JButton("Médio");
+        JButton difficultButton = new JButton("Dificil");
 
-        Font buttonFont = new Font(jogarButton.getFont().getName(), Font.PLAIN, 20); // Definindo uma nova fonte com tamanho 20
-        jogarButton.setFont(buttonFont);
-        creditosButton.setFont(buttonFont);
-        sairButton.setFont(buttonFont);
+        Font buttonFont = new Font(easyButton.getFont().getName(), Font.PLAIN, 20);
+        easyButton.setFont(buttonFont);
+        mediumButton.setFont(buttonFont);
+        difficultButton.setFont(buttonFont);
 
-        jogarButton.addActionListener(new ActionListener() {
+        easyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 TabuleiroGUI tabuleiro = new TabuleiroGUI();
@@ -29,28 +30,44 @@ public class DificuldadeGUI {
             }
         });
 
-        creditosButton.addActionListener(new ActionListener() {
+        mediumButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                CreditosGUI creditosGUI = new CreditosGUI();
-                creditosGUI.initGUI();
+                TabuleiroGUI tabuleiro = new TabuleiroGUI();
+                tabuleiro.initGUI();
             }
         });
 
-        sairButton.addActionListener(new ActionListener() {
+        difficultButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(frame, "Tem certeza que deseja sair?", "Confirmar saída", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
+                frame.dispose();
+                TabuleiroGUI tabuleiro = new TabuleiroGUI();
+                tabuleiro.initGUI();
             }
         });
 
-        panel.add(jogarButton);
-        panel.add(creditosButton);
-        panel.add(sairButton);
+        panel.add(easyButton);
+        panel.add(mediumButton);
+        panel.add(difficultButton);
 
-        frame.add(panel);
+        JPanel bottomPanel = new JPanel(); // Novo painel para o botão "Voltar"
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Centralizando o botão "Voltar"
+        
+        JButton voltarButton = new JButton("Voltar"); // Novo botão de voltar
+        voltarButton.setPreferredSize(new Dimension(100, 50)); // Definindo tamanho menor para o botão "Voltar"
+        voltarButton.setFont(new Font(voltarButton.getFont().getName(), Font.PLAIN, 15)); // Ajustando o tamanho da fonte
+        voltarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Fecha a janela atual
+                MenuGUI menuGUI = new MenuGUI();
+                menuGUI.initGUI();
+            }
+        });
+
+        bottomPanel.add(voltarButton); // Adiciona o botão "Voltar" ao painel inferior
+
+        frame.add(panel, BorderLayout.CENTER); // Adiciona o painel principal ao centro
+        frame.add(bottomPanel, BorderLayout.SOUTH); // Adiciona o painel inferior na parte inferior
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
