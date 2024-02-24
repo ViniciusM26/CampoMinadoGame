@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MenuGUI {
+public class DificuldadeGUI {
     public static void initGUI() {
         JFrame frame = new JFrame("Minha GUI");
 
@@ -24,8 +24,8 @@ public class MenuGUI {
         jogarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI();
-                dificuldadeGUI.initGUI();
+                TabuleiroGUI tabuleiro = new TabuleiroGUI();
+                tabuleiro.initGUI();
             }
         });
 

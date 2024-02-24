@@ -5,7 +5,6 @@ import javax.swing.*;
 import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 import campoMinado.ModosJogo.Jogo;
-import campoMinado.ModosJogo.JogoSolo;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 import campoMinado.Tabuleiros.Tabuleiro;
@@ -30,7 +29,7 @@ public class TabuleiroGUI {
         buttons = new JButton[SIZE][SIZE];
         int bombas = 5;
 
-        jogo = new JogoSolo(new Tabuleiro(8, 5));
+        jogo = new Jogo(new Tabuleiro(8, 5));
         jogador = new JogadorSingle("Bruno");
 
         JFrame frame = new JFrame("Campo Minado");
@@ -47,7 +46,7 @@ public class TabuleiroGUI {
                 //botão esquerdo na celula
                 buttons[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        jogo.Jogar(jogador,row, col);
+                        jogo.jogar(jogador,row, col);
                         System.out.println("oi");
                         clicarCelula(row, col);
                         atualizarBotoes(buttons);
@@ -166,18 +165,9 @@ public class TabuleiroGUI {
         }
     }
     
-    /*
-    private static void celulasAoRedor(int row, int col){
-        
-    }
-    
-    private static boolean isValid(int row, int col) {
-        return row >= 0 && row < SIZE && col >= 0 && col < SIZE;
-    }
-    */
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(TabuleiroGUI::initGUI);
-        Jogo jogo = new JogoSolo(null);
+        Jogo jogo = new Jogo(null);
     }
 }

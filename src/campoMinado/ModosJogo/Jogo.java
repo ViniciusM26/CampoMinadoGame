@@ -1,10 +1,11 @@
 package campoMinado.ModosJogo;
 
 import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
+import campoMinado.Interfaces.JogoInterface;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.Tabuleiros.Tabuleiro;
 
-public abstract class Jogo {
+public class Jogo implements JogoInterface {
     private boolean funcionamentoJogo;
 	private Tabuleiro tabuleiro;
 	private int rodadas;
@@ -13,7 +14,20 @@ public abstract class Jogo {
         setTabuleiro(tabuleiro);
     }
 
-    public abstract void Jogar(Jogador jogador,int row,int col );
+    @Override
+	public void jogar(Jogador jogador,int x, int y){
+		
+		if(rodadaPadrao(jogador,x,y)){
+			jogador.passarRodada();
+		}else{
+			jogador.encontrarBomba();
+		}
+
+	}
+
+    public void alterarBandeira(int row, int col) {
+		getTabuleiro().getMatriz()[row][col].trocarBandeira();
+	}
 
     public int getRodadas() {
 		return rodadas;
