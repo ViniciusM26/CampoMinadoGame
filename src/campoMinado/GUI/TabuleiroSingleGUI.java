@@ -1,44 +1,42 @@
 package campoMinado.GUI;
 
-import javax.swing.*;
-
 import campoMinado.Celulas.Celula;
-import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 import campoMinado.ModosJogo.Jogo;
 import campoMinado.ModosJogo.Jogadores.Jogador;
-import campoMinado.ModosJogo.Jogadores.JogadorSingle;
-import campoMinado.Tabuleiros.Tabuleiro;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TabuleiroGUI {
+public class TabuleiroSingleGUI {
 
-    private static Jogo jogo;
-    private static JogadorSingle jogador;
-    private static JButton[][] buttons;
-    private static final int SIZE = 8;
-    private static final Color GREEN = Color.GREEN;
-    private static final Color WHITE = Color.WHITE;
-    private static final Color BLACK = Color.BLACK;
-    private static JLabel bandeirasLabel;
-    private static JLabel pontuacaoLabel;
+    private Jogo jogo;
+    private Jogador jogador;
+    private JButton[][] buttons;
+    private final Color GREEN = Color.GREEN;
+    private final Color WHITE = Color.WHITE;
+    private final Color BLACK = Color.BLACK;
+    private JLabel bandeirasLabel;
+    private JLabel pontuacaoLabel;
 
-    public static void initGUI() {
-        buttons = new JButton[SIZE][SIZE];
-        int bombas = 5;
+    public TabuleiroSingleGUI(Jogo jogo,Jogador jogador){
+        this.jogo = jogo;
+        this.jogador = jogador; 
+    }
 
-        jogo = new Jogo(new Tabuleiro(8, 5));
-        jogador = new JogadorSingle("Bruno");
+    public void initGUI() {
+
+        int size = jogo.getTabuleiro().getTamanho();
+        
+        buttons = new JButton[size][size];
 
         JFrame frame = new JFrame("Campo Minado");
         JPanel panel = new JPanel(new BorderLayout());
 
-        JPanel gamePanel = new JPanel(new GridLayout(8, 8)); // Grid para o campo minado
+        JPanel gamePanel = new JPanel(new GridLayout(size, size)); // Grid para o campo minado
 
-        for (int i = 0; i < jogo.getTabuleiro().getTamanho(); i++) {
-            for (int j = 0; j < jogo.getTabuleiro().getTamanho(); j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 buttons[i][j] = new JButton();
                 int row = i; // Calcula a linha do botão
                 int col = j; // Calcula a coluna do botão
@@ -80,18 +78,17 @@ public class TabuleiroGUI {
         // Placar
         JPanel placarPanel = new JPanel(new GridLayout(1, 2));
 
-        bandeirasLabel = new JLabel("Bandeiras restantes: " + bombas);
+        bandeirasLabel = new JLabel("Bandeiras restantes: " + jogo.getTabuleiro().getBombas());
         placarPanel.add(bandeirasLabel);
 
-        pontuacaoLabel = new JLabel("Pontuação: 0");
+        pontuacaoLabel = new JLabel("Pontuação de "+jogador.getNome()+": 0");
         placarPanel.add(pontuacaoLabel);
 
         JButton voltarButton = new JButton("Voltar");
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                MenuGUI menuGUI = new MenuGUI();
-                menuGUI.initGUI();
+                MenuGUI.initGUI();
             }
         });
 
@@ -100,29 +97,18 @@ public class TabuleiroGUI {
         panel.add(voltarButton, BorderLayout.NORTH);
 
         frame.add(panel);
-        frame.setSize(400, 400);
+        frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Centralizar na tela
         frame.setVisible(true);
     }
 
-    private static void clicarCelula(int row, int col) {
+    private void clicarCelula(int row, int col) {
         buttons[row][col].setBackground(Color.GREEN); // Muda a cor do botão clicado
         buttons[row][col].setEnabled(false);// desabilira o click
-        /*
-        // Coordenadas dos botões adjacentes
-        int[][] offsets = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        for (int[] offset : offsets) {
-            int newRow = row + offset[0];
-            int newCol = col + offset[1];
-            if (isValid(newRow, newCol) && buttons[newRow][newCol].getBackground() != GREEN) {
-                buttons[newRow][newCol].setBackground(GREEN);
-                buttons[newRow][newCol].setEnabled(false);
-            }
-        }
-        */
     }
-    private static boolean decrementarBandeiras() {
+    
+    private boolean decrementarBandeiras() {
         int bandeiras = Integer.parseInt(bandeirasLabel.getText().split(": ")[1]);
         if(bandeiras != 0){
             bandeiras--;
@@ -132,19 +118,20 @@ public class TabuleiroGUI {
         else return(false);
     }
     
-    private static void incrementarBandeiras() {
+    private void incrementarBandeiras() {
         int bandeiras = Integer.parseInt(bandeirasLabel.getText().split(": ")[1]);
         bandeiras++;
         bandeirasLabel.setText("Bandeiras restantes: " + bandeiras);
     }
 
-    private static void atualizarPontuacao(Jogador jogador) {
-        pontuacaoLabel.setText("Pontuação: " + jogador.getPontos());
+    private void atualizarPontuacao(Jogador jogador) {
+        pontuacaoLabel.setText("Pontuação de "+jogador.getNome()+": " + jogador.getPontos());
     }
 
-    private static void atualizarBotoes(JButton buttons[][]) {
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
+    private void atualizarBotoes(JButton buttons[][]) {
+        int size = jogo.getTabuleiro().getTamanho();
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
                 Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
                 System.out.println("oi");
                 // caso a celula seja modificada
@@ -165,9 +152,4 @@ public class TabuleiroGUI {
         }
     }
     
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(TabuleiroGUI::initGUI);
-        Jogo jogo = new Jogo(null);
-    }
 }

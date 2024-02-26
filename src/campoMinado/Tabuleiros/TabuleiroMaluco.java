@@ -4,14 +4,13 @@ import java.util.Random;
 
 import campoMinado.Celulas.Celula;
 import campoMinado.Celulas.CelulaMaluca.CelulaMaluca;
-import campoMinado.Celulas.CelulaSimples.Bomba;
 import campoMinado.Celulas.CelulaSimples.CelulaVazia;
 import campoMinado.Celulas.CelulaSimples.CelulaVizinha;
 
 public class TabuleiroMaluco extends Tabuleiro{
 
-    public TabuleiroMaluco(int p1, int p2) {
-        super(p1, p2);
+    public TabuleiroMaluco(int dificuldade) {
+        super(dificuldade);
     }
 
     private void iniciarCelulasMalucas(){

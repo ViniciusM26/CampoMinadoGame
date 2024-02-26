@@ -10,7 +10,7 @@ public class MenuGUI {
         JPanel panel = new JPanel();
 
         panel.setLayout(new GridLayout(3, 1));
-        panel.setSize(400, 400);
+        panel.setSize(600,600);
 
         JButton jogarButton = new JButton("Jogar");
         JButton creditosButton = new JButton("Créditos");
@@ -24,8 +24,8 @@ public class MenuGUI {
         jogarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI();
-                dificuldadeGUI.initGUI();
+                EscolhaModoJogoGUI escolhaModoJogoGUI = new EscolhaModoJogoGUI();
+                escolhaModoJogoGUI.initGUI();
             }
         });
 

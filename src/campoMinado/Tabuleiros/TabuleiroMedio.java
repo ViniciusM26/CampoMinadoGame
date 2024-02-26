@@ -3,7 +3,7 @@ package campoMinado.Tabuleiros;
 public class TabuleiroMedio extends Tabuleiro {
     
     public TabuleiroMedio(){
-        super(16, 40);
+        super(2);
     }
 
     @Override

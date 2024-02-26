@@ -3,24 +3,18 @@ package campoMinado.GUI;
 import javax.swing.*;
 
 import campoMinado.ModosJogo.Jogo;
+import campoMinado.ModosJogo.Jogadores.Jogador;
+import campoMinado.ModosJogo.Jogadores.JogadorSingle;
 import campoMinado.Tabuleiros.Tabuleiro;
 import campoMinado.Tabuleiros.TabuleiroDificil;
 import campoMinado.Tabuleiros.TabuleiroFacil;
-import campoMinado.Tabuleiros.TabuleiroMaluco;
 import campoMinado.Tabuleiros.TabuleiroMedio;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class DificuldadeGUI {
-    private static boolean modoJogo;
-
-    public DificuldadeGUI(boolean modoJogo){
-        DificuldadeGUI.modoJogo = modoJogo;
-    }
-
+public class EscolhaModoJogoGUI {
     public static void initGUI() {
-        
         JFrame frame = new JFrame("Minha GUI");
 
         JPanel panel = new JPanel();
@@ -28,46 +22,31 @@ public class DificuldadeGUI {
         panel.setLayout(new GridLayout(3, 1)); // Reduzindo para 3 para os botões principais
         panel.setSize(600, 600);
 
-        JButton easyButton = new JButton("Fácil");
-        JButton mediumButton = new JButton("Médio");
-        JButton difficultButton = new JButton("Dificil");
+        JButton malucoButton = new JButton("Maluco");
+        JButton normalButton = new JButton("Normal");
 
-        Font buttonFont = new Font(easyButton.getFont().getName(), Font.PLAIN, 20);
-        easyButton.setFont(buttonFont);
-        mediumButton.setFont(buttonFont);
-        difficultButton.setFont(buttonFont);
+        Font buttonFont = new Font(malucoButton.getFont().getName(), Font.PLAIN, 20);
+        malucoButton.setFont(buttonFont);
+        normalButton.setFont(buttonFont);
 
-        easyButton.addActionListener(new ActionListener() {
+        malucoButton.addActionListener(new ActionListener() { //escolha do modo maluco
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                Jogo jogo = criarJogo(modoJogo, 1);
-                SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(modoJogo,jogo);
-                selecaoModoJogador.initGUI();
+                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(true);
+                DificuldadeGUI.initGUI();
             }
         });
 
-        mediumButton.addActionListener(new ActionListener() {
+        normalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                Jogo jogo = criarJogo(modoJogo, 2);
-                SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(modoJogo,jogo);
-                selecaoModoJogador.initGUI();
-                
+                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(false);
+                dificuldadeGUI.initGUI();
             }
         });
 
-        difficultButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                Jogo jogo = criarJogo(modoJogo, 3);
-                SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(modoJogo,jogo);
-                selecaoModoJogador.initGUI();
-            }
-        });
-
-        panel.add(easyButton);
-        panel.add(mediumButton);
-        panel.add(difficultButton);
+        panel.add(normalButton);
+        panel.add(malucoButton);
 
         JPanel bottomPanel = new JPanel(); // Novo painel para o botão "Voltar"
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Centralizando o botão "Voltar"
@@ -91,17 +70,6 @@ public class DificuldadeGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    public static Jogo criarJogo(boolean modoJogo, int dificuldade){
-        Jogo jogo;// cria a variavel
-        //instancia de acordo com o usuario
-        if(modoJogo){
-            jogo = new Jogo(new TabuleiroMaluco(dificuldade)); 
-        }else{
-            jogo = new Jogo(new Tabuleiro(dificuldade)); 
-        }
-        return jogo;
     }
 
     public static void main(String[] args) {

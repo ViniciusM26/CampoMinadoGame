@@ -3,7 +3,7 @@ package campoMinado.Tabuleiros;
 public class TabuleiroDificil extends Tabuleiro {
 
     public TabuleiroDificil(){
-        super(30,99);
+        super(3);
     }
     
     @Override

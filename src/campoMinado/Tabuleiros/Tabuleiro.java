@@ -14,10 +14,21 @@ public class Tabuleiro implements TabuleiroInterface {
 	private int tamanho;
 	private int bombas;
 
-	public Tabuleiro(int tamanho, int bombas) {
+	public Tabuleiro(int modo) {
 		
-		this.setTamanho(tamanho);
-		this.setBombas(bombas);
+		switch(modo){
+			case 1:
+				setBombas(4);
+				setTamanho(5);
+				break;
+			case 2:
+				setBombas(16);
+				setTamanho(8);
+			case 3:
+				setTamanho(10);
+				setBombas(25);
+		}
+
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
 		iniciarCelulas(); // função que inicializa os elementos como bomba ou null
 

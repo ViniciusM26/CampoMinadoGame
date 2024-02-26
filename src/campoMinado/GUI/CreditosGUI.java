@@ -43,7 +43,7 @@ public class CreditosGUI {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.add(panel);
-        frame.setSize(400, 400);
+        frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Para centralizar na tela
         frame.setCursor(Cursor.getDefaultCursor()); // Desabilita o cursor

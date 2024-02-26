@@ -3,7 +3,7 @@ package campoMinado.Tabuleiros;
 public class TabuleiroFacil extends Tabuleiro {
     
     public TabuleiroFacil() {
-        super(9, 10); // tamanho 9x9 e 10 bombas
+        super(1); // tamanho 9x9 e 10 bombas
     }
 
     @Override
