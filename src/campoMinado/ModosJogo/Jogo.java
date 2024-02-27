@@ -14,17 +14,6 @@ public class Jogo implements JogoInterface {
         setTabuleiro(tabuleiro);
     }
 
-    @Override
-	public void jogar(Jogador jogador,int x, int y){
-		
-		if(rodadaPadrao(jogador,x,y)){
-			jogador.passarRodada();
-		}else{
-			jogador.encontrarBomba();
-		}
-
-	}
-
     public void alterarBandeira(int row, int col) {
 		getTabuleiro().getMatriz()[row][col].trocarBandeira();
 	}
@@ -66,19 +55,20 @@ public class Jogo implements JogoInterface {
 		setFuncionamentoJogo(false);
 	}
 
-    protected boolean rodadaPadrao(Jogador jogador,int x,int y){
+    public boolean rodadaPadrao(Jogador jogador,int x,int y){
             
     CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
     
     if(celulaSimples == null || !(celulaSimples.getClicado())){
         if((getTabuleiro().selecionar(x, y))){ // verifica se tem bomba e altera a celula
-            System.out.println(jogador + jogador.encontrarBomba());// imprime e retira os pontos
+            jogador.encontrarBomba();// Retira os pontos
+            pararJogo();
         }else{
-            System.out.println(jogador + jogador.passarRodada()); // imprime e coloca os pontos
+            jogador.passarRodada(); // Coloca os pontos
         }
         passarRodada();
         return true;
     }
-    return false;
+    return false;// retorna falso para não fazer modificações
     }
 }

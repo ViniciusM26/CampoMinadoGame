@@ -126,7 +126,6 @@ public class Tabuleiro implements TabuleiroInterface {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
 			if( getMatriz()[x][y].getCelulaSimples() == null|| !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
 				return clicarCelula(x, y);
-			
 			}
 		return false; // retorna falso por não ter bomba
 	}	

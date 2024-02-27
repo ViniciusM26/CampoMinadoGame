@@ -5,7 +5,6 @@ import javax.swing.*;
 import campoMinado.ModosJogo.Jogo;
 import campoMinado.ModosJogo.Jogadores.JogadorMultiplayer;
 import campoMinado.ModosJogo.Jogadores.JogadorSingle;
-import campoMinado.Tabuleiros.TabuleiroMedio;
 
 import java.awt.*;
 import java.awt.event.*;

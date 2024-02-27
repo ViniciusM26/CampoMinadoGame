@@ -21,7 +21,7 @@ public class TabuleiroMultiGUI {
     private JLabel pontuacao1Label;
     private JLabel pontuacao2Label;
 
-    public TabuleiroMultiGUI(Jogo jogo,Jogador jogador1,Jogador jogador2){
+    public TabuleiroMultiGUI (Jogo jogo,Jogador jogador1,Jogador jogador2){
         //inicializa as variaveis do jogo Multiplayer
         this.jogo = jogo;
         this.jogador1 = jogador1;
@@ -48,19 +48,17 @@ public class TabuleiroMultiGUI {
                 //botão esquerdo na celula
                 buttons[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        Jogador jogadorDaRodada;
+                        Jogador jogadorDaRodada;// cria uma variavel para referenciar o jogador
                         if(jogo.getRodadas()%2 == 0){
                              jogadorDaRodada= jogador1;
                         }else{
                             jogadorDaRodada = jogador2;
                         }
-                        jogo.jogar(jogadorDaRodada,row, col);
-                        System.out.println("oi");
-                        clicarCelula(row, col);
+                        jogo.rodadaPadrao(jogadorDaRodada,row, col);//roda o jogo no back
+
                         atualizarBotoes(buttons);
-                        System.out.println(jogo.getTabuleiro());
+                        System.out.println(jogo.getTabuleiro());// mostra o tabuleiro no console
                         atualizarPontuacao(jogadorDaRodada);
-                        System.out.println(jogadorDaRodada.getPontos());
                     }
                 });
                 //botão direto na celula
@@ -69,9 +67,10 @@ public class TabuleiroMultiGUI {
                         if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
                             JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
                             if (buttonClicked.isEnabled()) {
+                                //coloca a bandeira
                                 if(decrementarBandeiras()){
-                                buttonClicked.setEnabled(false);
-                                buttonClicked.setBackground(BLACK);
+                                    buttonClicked.setEnabled(false);
+                                    buttonClicked.setBackground(BLACK);
                             }
                             } else {
                                 buttonClicked.setEnabled(true);
@@ -91,8 +90,8 @@ public class TabuleiroMultiGUI {
         bandeirasLabel = new JLabel("Bandeiras restantes: " + jogo.getTabuleiro().getBombas());
         placarPanel.add(bandeirasLabel);
 
-        pontuacao1Label = new JLabel("Pontuação: 0");
-        pontuacao2Label = new JLabel("Pontuação: 0");
+        pontuacao1Label = new JLabel("Pontuação de "+jogador1.getNome()+": 0");
+        pontuacao2Label = new JLabel("Pontuação de "+jogador2.getNome()+": 0");
         placarPanel.add(pontuacao1Label);
         placarPanel.add(pontuacao2Label);
 
@@ -152,7 +151,6 @@ public class TabuleiroMultiGUI {
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
-                System.out.println("oi");
                 // caso a celula seja modificada
                 if (!(celula.getCelulaSimples() == null || (celula.getCelulaSimples().getClicado() == false))) {
                     if (celula.getCelulaSimples().getSimbolo() == '@') {

@@ -13,9 +13,6 @@ public class TabuleiroSingleGUI {
     private Jogo jogo;
     private Jogador jogador;
     private JButton[][] buttons;
-    private final Color GREEN = Color.GREEN;
-    private final Color WHITE = Color.WHITE;
-    private final Color BLACK = Color.BLACK;
     private JLabel bandeirasLabel;
     private JLabel pontuacaoLabel;
 
@@ -44,13 +41,18 @@ public class TabuleiroSingleGUI {
                 //botão esquerdo na celula
                 buttons[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        jogo.jogar(jogador,row, col);
-                        System.out.println("oi");
-                        clicarCelula(row, col);
-                        atualizarBotoes(buttons);
-                        System.out.println(jogo.getTabuleiro());
-                        atualizarPontuacao(jogador);
-                        System.out.println(jogador.getPontos());
+                        // roda o jogo no "back" e verifica se ocorreram modificações
+                        if(jogo.rodadaPadrao(jogador,row, col)){
+                            if(jogador.isJogando()){//jogo funcionando
+                                atualizarBotoes(buttons);
+                                System.out.println(jogo.getTabuleiro());
+                                atualizarPontuacao(jogador);
+                                System.out.println("Pontuação de "+jogador.getNome()+":"+jogador.getPontos());
+                            }else{//jogo não funcionando
+                                finalizarJogo();
+                            }
+                        }
+
                     }
                 });
                 //botão direto na celula
@@ -58,12 +60,14 @@ public class TabuleiroSingleGUI {
                     public void mouseClicked(MouseEvent e) {
                         if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
                             JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
-                            if (buttonClicked.isEnabled()) {
+                            if (buttonClicked.isEnabled()) {// verifica o estado da bandeira
                                 if(decrementarBandeiras()){
-                                buttonClicked.setEnabled(false);
-                                buttonClicked.setBackground(BLACK);
-                            }
+                                    //coloca a bandeira
+                                    buttonClicked.setEnabled(false);
+                                    buttonClicked.setBackground(Color.BLACK);
+                                }
                             } else {
+                                //tira a bandeira
                                 buttonClicked.setEnabled(true);
                                 buttonClicked.setBackground(null);
                                 incrementarBandeiras();
@@ -128,18 +132,33 @@ public class TabuleiroSingleGUI {
         pontuacaoLabel.setText("Pontuação de "+jogador.getNome()+": " + jogador.getPontos());
     }
 
+    private void finalizarJogo(){
+        int size = jogo.getTabuleiro().getTamanho();
+        for(int x = 0; x < size; x++){
+            for(int y = 0;y<size;y++){
+                JButton botaoRodada = buttons[x][y];//pega o botão da posição x e y
+                botaoRodada.setEnabled(false);
+
+                // pega as celulas bombas e as mostra
+                Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
+                if(celula.getCelulaSimples() != null && celula.getCelulaSimples().getSimbolo() == '°'){
+                    clicarBomba(x, y);
+                }
+            }
+        }
+    }
+
     private void atualizarBotoes(JButton buttons[][]) {
         int size = jogo.getTabuleiro().getTamanho();
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
                 Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
-                System.out.println("oi");
                 // caso a celula seja modificada
                 if (!(celula.getCelulaSimples() == null || (celula.getCelulaSimples().getClicado() == false))) {
                     if (celula.getCelulaSimples().getSimbolo() == '@') {
                         clicarCelula(x ,y);
                     } else if (celula.getCelulaSimples().getSimbolo() == '°') {
-                        buttons[x][y].setText("°");
+                        clicarBomba(x, y);
                     } else {
                         char c = celula.getCelulaSimples().getSimbolo();
                         buttons[x][y].setText(c + "");
@@ -147,9 +166,15 @@ public class TabuleiroSingleGUI {
                     }
                 }
                 buttons[x][y].repaint();
-
             }
         }
     }
-    
+
+    private void clicarBomba(int row, int col){
+        JButton currentButton = buttons[row][col];
+        currentButton.setBackground(Color.red); // Muda a cor do botão clicado
+        currentButton.setEnabled(false);// desabilira o click
+        currentButton.setText("°");
+        currentButton.repaint();
+    }
 }
