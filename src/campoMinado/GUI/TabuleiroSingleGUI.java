@@ -49,7 +49,7 @@ public class TabuleiroSingleGUI {
                                 atualizarPontuacao(jogador);
                                 System.out.println("Pontuação de "+jogador.getNome()+":"+jogador.getPontos());
                             }else{//jogo não funcionando
-                                finalizarJogo();
+                                perderJogo();// alterar para poder finalizar o jogo melhor
                             }
                         }
 
@@ -60,11 +60,15 @@ public class TabuleiroSingleGUI {
                     public void mouseClicked(MouseEvent e) {
                         if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
                             JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
+                            jogo.alterarBandeira(row, col);
                             if (buttonClicked.isEnabled()) {// verifica o estado da bandeira
-                                if(decrementarBandeiras()){
+                                if(decrementarBandeiras()){//verifica se pode colocar bandeira
                                     //coloca a bandeira
                                     buttonClicked.setEnabled(false);
                                     buttonClicked.setBackground(Color.BLACK);
+                                    if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
+                                        ganharJogo();
+                                    }
                                 }
                             } else {
                                 //tira a bandeira
@@ -72,6 +76,7 @@ public class TabuleiroSingleGUI {
                                 buttonClicked.setBackground(null);
                                 incrementarBandeiras();
                             }
+
                         }
                     }
                 });
@@ -132,7 +137,7 @@ public class TabuleiroSingleGUI {
         pontuacaoLabel.setText("Pontuação de "+jogador.getNome()+": " + jogador.getPontos());
     }
 
-    private void finalizarJogo(){
+    private void perderJogo(){
         int size = jogo.getTabuleiro().getTamanho();
         for(int x = 0; x < size; x++){
             for(int y = 0;y<size;y++){
@@ -143,6 +148,22 @@ public class TabuleiroSingleGUI {
                 Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
                 if(celula.getCelulaSimples() != null && celula.getCelulaSimples().getSimbolo() == '°'){
                     clicarBomba(x, y);
+                }
+            }
+        }
+    }
+
+    private void ganharJogo(){
+        int size = jogo.getTabuleiro().getTamanho();
+        for(int x = 0; x < size; x++){
+            for(int y = 0;y<size;y++){
+                JButton botaoRodada = buttons[x][y];//pega o botão da posição x e y
+                botaoRodada.setEnabled(false);
+
+                // pega as celulas bombas e as mostra
+                Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
+                if(celula.getCelulaSimples() != null && celula.getCelulaSimples().getSimbolo() == '°'){
+                    botaoRodada.setEnabled(false);
                 }
             }
         }

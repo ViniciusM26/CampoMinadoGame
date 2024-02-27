@@ -15,7 +15,7 @@ public class Jogo implements JogoInterface {
     }
 
     public void alterarBandeira(int row, int col) {
-		getTabuleiro().getMatriz()[row][col].trocarBandeira();
+		getTabuleiro().clicarBandeira(row, col);
 	}
 
     public int getRodadas() {
@@ -57,12 +57,13 @@ public class Jogo implements JogoInterface {
 
     public boolean rodadaPadrao(Jogador jogador,int x,int y){
             
-    CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
+    // separa a celula normal da maluca
+    CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples(); 
     
     if(celulaSimples == null || !(celulaSimples.getClicado())){
         if((getTabuleiro().selecionar(x, y))){ // verifica se tem bomba e altera a celula
             jogador.encontrarBomba();// Retira os pontos
-            pararJogo();
+            getTabuleiro().setBombasDisponiveis(getTabuleiro().getBombasDisponiveis()-1);
         }else{
             jogador.passarRodada(); // Coloca os pontos
         }

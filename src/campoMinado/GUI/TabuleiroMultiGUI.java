@@ -59,6 +59,9 @@ public class TabuleiroMultiGUI {
                         atualizarBotoes(buttons);
                         System.out.println(jogo.getTabuleiro());// mostra o tabuleiro no console
                         atualizarPontuacao(jogadorDaRodada);
+                        if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
+                            acabarJogo();
+                        }
                     }
                 });
                 //botão direto na celula
@@ -66,11 +69,15 @@ public class TabuleiroMultiGUI {
                     public void mouseClicked(MouseEvent e) {
                         if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
                             JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
+                            jogo.alterarBandeira(row, col);
                             if (buttonClicked.isEnabled()) {
                                 //coloca a bandeira
                                 if(decrementarBandeiras()){
                                     buttonClicked.setEnabled(false);
                                     buttonClicked.setBackground(BLACK);
+                                    if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
+                                        acabarJogo();
+                                    }
                             }
                             } else {
                                 buttonClicked.setEnabled(true);
@@ -113,6 +120,23 @@ public class TabuleiroMultiGUI {
         frame.setLocationRelativeTo(null); // Centralizar na tela
         frame.setVisible(true);
     }
+
+    private void acabarJogo(){
+        int size = jogo.getTabuleiro().getTamanho();
+        for(int x = 0; x < size; x++){
+            for(int y = 0;y<size;y++){
+                JButton botaoRodada = buttons[x][y];//pega o botão da posição x e y
+                botaoRodada.setEnabled(false);
+
+                // pega as celulas bombas e as mostra
+                Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
+                if(celula.getCelulaSimples() != null && celula.getCelulaSimples().getSimbolo() == '°'){
+                    botaoRodada.setEnabled(false);
+                }
+            }
+        }
+    }
+
 
     private void clicarCelula(int row, int col) {
         buttons[row][col].setBackground(Color.GREEN); // Muda a cor do botão clicado

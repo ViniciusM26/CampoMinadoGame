@@ -13,6 +13,7 @@ public class Tabuleiro implements TabuleiroInterface {
 	private Celula[][] matriz;
 	private int tamanho;
 	private int bombas;
+	private int bombasDisponiveis;
 
 	public Tabuleiro(int modo) {
 		
@@ -41,6 +42,13 @@ public class Tabuleiro implements TabuleiroInterface {
         this.setMatriz(new Celula[getTamanho()][getTamanho()]);
         iniciarCelulas();
     }
+	public int getBombasDisponiveis() {
+		return bombasDisponiveis;
+	}
+
+	public void setBombasDisponiveis(int bombasDisponiveis) {
+		this.bombasDisponiveis = bombasDisponiveis;
+	}
 
 	private void setMatriz(Celula [][] matriz){
 		this.matriz = matriz;
@@ -51,19 +59,20 @@ public class Tabuleiro implements TabuleiroInterface {
 	}
 
 	public int getTamanho(){
-	return this.tamanho;
+		return this.tamanho;
 	}
 
 	private void setTamanho(int p1){
-	this.tamanho = p1;
+		this.tamanho = p1;
 	}
 
 	public int getBombas(){
-	return this.bombas;
+		return this.bombas;
 	}
 
 	private void setBombas(int p1){
-	this.bombas = p1;
+		this.bombas = p1;
+		setBombasDisponiveis(p1);
 	}
 
 	public int contagemBombas(int x, int y){
@@ -118,7 +127,17 @@ public class Tabuleiro implements TabuleiroInterface {
 	
 	@Override
 	public void clicarBandeira(int x, int y){
-		getMatriz()[x][y].trocarBandeira();
+		Celula currentCell = getMatriz()[x][y];
+		//verificação se é bomba
+		if(currentCell.getCelulaSimples() != null && !(currentCell.getCelulaSimples().getClicado())){
+			if(currentCell.isBandeira()){
+				setBombasDisponiveis(getBombasDisponiveis()+1);//tirando bandeira
+			}else{
+				setBombasDisponiveis(getBombasDisponiveis()-1);//colocando bandeira
+			}
+			currentCell.trocarBandeira();// inverte o estado da bandeira
+		}
+		
 	}
 
 	@Override
