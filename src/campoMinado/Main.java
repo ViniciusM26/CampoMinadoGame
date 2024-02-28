@@ -3,6 +3,7 @@ package campoMinado;
 import javax.swing.JFrame;
 
 import campoMinado.GUI.MenuGUI;
+import campoMinado.ModosJogo.Jogadores.Historico;
 
 public class Main extends JFrame {
     
