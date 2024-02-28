@@ -42,44 +42,66 @@ public class TabuleiroSingleGUI {
                 buttons[i][j].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         // roda o jogo no "back" e verifica se ocorreram modificações
-                        if(jogo.rodadaPadrao(jogador,row, col)){
-                            if(jogador.isJogando()){//jogo funcionando
+                        if (jogo.rodadaPadrao(jogador, row, col)) {
+                            if (jogador.isJogando()) { // jogo funcionando
                                 atualizarBotoes(buttons);
                                 System.out.println(jogo.getTabuleiro());
                                 atualizarPontuacao(jogador);
-                                System.out.println("Pontuação de "+jogador.getNome()+":"+jogador.getPontos());
-                            }else{//jogo não funcionando
-                                perderJogo();// alterar para poder finalizar o jogo melhor
+                                System.out.println("Pontuação de " + jogador.getNome() + ":" + jogador.getPontos());
+                            } else { // jogo não funcionando
+                                perderJogo();
+                                Timer timer = new Timer(2000, new ActionListener() {
+                                    public void actionPerformed(ActionEvent evt) {
+                                        SwingUtilities.invokeLater(new Runnable() {
+                                            public void run() {
+                                                new TelaDerrotaGUI(jogador);
+                                                frame.dispose(); // Fecha o JFrame do tabuleiro
+                                            }
+                                        });
+                                    }
+                                });
+                                timer.setRepeats(false); // Garante que o Timer dispare apenas uma vez
+                                timer.start();
                             }
                         }
-
                     }
                 });
+                
                 //botão direto na celula
                 buttons[i][j].addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
-                        if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
-                            JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            JButton buttonClicked = (JButton) e.getSource();
                             jogo.alterarBandeira(row, col);
-                            if (buttonClicked.isEnabled()) {// verifica o estado da bandeira
-                                if(decrementarBandeiras()){//verifica se pode colocar bandeira
-                                    //coloca a bandeira
+                            if (buttonClicked.isEnabled()) {
+                                if (decrementarBandeiras()) {
                                     buttonClicked.setEnabled(false);
                                     buttonClicked.setBackground(Color.BLACK);
-                                    if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
+                                    if (jogo.getTabuleiro().getBombasDisponiveis() == 0) {
                                         ganharJogo();
+                                        Timer timer = new Timer(2000, new ActionListener() {
+                                            public void actionPerformed(ActionEvent evt) {
+                                                SwingUtilities.invokeLater(new Runnable() {
+                                                    public void run() {
+                                                        frame.dispose(); // Fecha o JFrame do tabuleiro
+                                                        new TelaVitoriaGUI(jogador);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        timer.setRepeats(false);
+                                        timer.start();
                                     }
                                 }
                             } else {
-                                //tira a bandeira
                                 buttonClicked.setEnabled(true);
                                 buttonClicked.setBackground(null);
                                 incrementarBandeiras();
                             }
-
                         }
                     }
                 });
+                
                 gamePanel.add(buttons[i][j]);
             }
         }
@@ -146,8 +168,10 @@ public class TabuleiroSingleGUI {
 
                 // pega as celulas bombas e as mostra
                 Celula celula = jogo.getTabuleiro().getMatriz()[x][y];
+                //verifica se é bomba
                 if(celula.getCelulaSimples() != null && celula.getCelulaSimples().getSimbolo() == '°'){
                     clicarBomba(x, y);
+                    botaoRodada.repaint();
                 }
             }
         }
