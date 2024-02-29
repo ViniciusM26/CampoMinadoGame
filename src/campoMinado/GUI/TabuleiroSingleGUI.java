@@ -2,6 +2,7 @@ package campoMinado.GUI;
 
 import campoMinado.Celulas.Celula;
 import campoMinado.ModosJogo.Jogo;
+import campoMinado.ModosJogo.Jogadores.Historico;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 
 import javax.swing.*;
@@ -50,6 +51,7 @@ public class TabuleiroSingleGUI {
                                 System.out.println("Pontuação de " + jogador.getNome() + ":" + jogador.getPontos());
                             } else { // jogo não funcionando
                                 perderJogo();
+
                                 Timer timer = new Timer(2000, new ActionListener() {
                                     public void actionPerformed(ActionEvent evt) {
                                         SwingUtilities.invokeLater(new Runnable() {
@@ -160,6 +162,10 @@ public class TabuleiroSingleGUI {
     }
 
     private void perderJogo(){
+        // guarda o historico do jogador
+        Historico historico = new Historico();
+        historico.adicionarJogador(jogador);
+
         int size = jogo.getTabuleiro().getTamanho();
         for(int x = 0; x < size; x++){
             for(int y = 0;y<size;y++){
@@ -178,6 +184,10 @@ public class TabuleiroSingleGUI {
     }
 
     private void ganharJogo(){
+        // guarda o historico do jogador
+        Historico historico = new Historico();
+        historico.adicionarJogador(jogador);
+
         int size = jogo.getTabuleiro().getTamanho();
         for(int x = 0; x < size; x++){
             for(int y = 0;y<size;y++){

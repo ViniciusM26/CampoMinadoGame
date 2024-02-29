@@ -14,9 +14,6 @@ public class TabuleiroMultiGUI {
     private Jogador jogador1;
     private Jogador jogador2;
     private JButton[][] buttons;
-    private final Color GREEN = Color.GREEN;
-    private final Color WHITE = Color.WHITE;
-    private final Color BLACK = Color.BLACK;
     private JLabel bandeirasLabel;
     private JLabel pontuacao1Label;
     private JLabel pontuacao2Label;
@@ -61,6 +58,22 @@ public class TabuleiroMultiGUI {
                         atualizarPontuacao(jogadorDaRodada);
                         if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
                             acabarJogo();
+                            Timer timer = new Timer(2000, new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    SwingUtilities.invokeLater(new Runnable() {
+                                        public void run() {
+                                            frame.dispose(); // Fecha o JFrame do tabuleiro
+                                            if(jogador1.getPontos() > jogador2.getPontos())
+                                                new TelaVitoriaGUI(jogador1);
+                                            else if(jogador2.getPontos() > jogador1.getPontos())
+                                                new TelaVitoriaGUI(jogador2);
+                                            else new TelaEmpateGUI();
+                                        }
+                                    });
+                                }
+                            });
+                            timer.setRepeats(false);
+                            timer.start();
                         }
                     }
                 });
@@ -74,9 +87,23 @@ public class TabuleiroMultiGUI {
                                 //coloca a bandeira
                                 if(decrementarBandeiras()){
                                     buttonClicked.setEnabled(false);
-                                    buttonClicked.setBackground(BLACK);
+                                    buttonClicked.setBackground(Color.BLACK);
                                     if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
                                         acabarJogo();
+                                        Timer timer = new Timer(2000, new ActionListener() {
+                                            public void actionPerformed(ActionEvent evt) {
+                                                SwingUtilities.invokeLater(new Runnable() {
+                                                    public void run() {
+                                                        frame.dispose(); // Fecha o JFrame do tabuleiro
+                                                        if(jogador1.getPontos() > jogador2.getPontos())
+                                                            new TelaVitoriaGUI(jogador1);
+                                                        else if(jogador2.getPontos() > jogador1.getPontos())
+                                                            new TelaVitoriaGUI(jogador2);
+                                                        else new TelaEmpateGUI();
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
                             }
                             } else {
@@ -180,6 +207,7 @@ public class TabuleiroMultiGUI {
                     if (celula.getCelulaSimples().getSimbolo() == '@') {
                         clicarCelula(x ,y);
                     } else if (celula.getCelulaSimples().getSimbolo() == '°') {
+                        clicarBomba(x,y);
                         buttons[x][y].setText("°");
                     } else {
                         char c = celula.getCelulaSimples().getSimbolo();
@@ -191,6 +219,14 @@ public class TabuleiroMultiGUI {
 
             }
         }
+    }
+
+    private void clicarBomba(int x, int y) {
+        JButton currentButton = buttons[x][y];
+        currentButton.setText("°");
+        currentButton.setEnabled(false);
+        currentButton.setBackground(Color.RED);
+    
     }
     
 }

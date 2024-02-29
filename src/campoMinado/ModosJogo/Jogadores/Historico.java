@@ -18,19 +18,19 @@ public class Historico {
         carregarJogadoresDoArquivo();
     }
 
-    public void adicionarJogador(String nome, int pontos) {
+    public void adicionarJogador(Jogador currentJogador) {
         Jogador jogadorEncontrado = null;
         for (Jogador jogador : jogadores) {
-            if (jogador.getNome().equals(nome)) {
+            if (jogador.getNome().equals(currentJogador.getNome())) {
                 jogadorEncontrado = jogador;
                 break;
             }
         }
 
         if (jogadorEncontrado != null) {
-            jogadorEncontrado.setPontos(pontos);
+            jogadorEncontrado.setPontos(currentJogador.getPontos());
         } else {
-            jogadores.add(new Jogador(nome));
+            jogadores.add(currentJogador);
         }
 
         atualizarJogadores();
@@ -51,10 +51,12 @@ public class Historico {
             try (BufferedReader br = new BufferedReader(new FileReader(rankingFile))) {
                 String line;
                 while ((line = br.readLine()) != null) {
+                    // Remove espaços em branco em excesso antes de tentar converter para número
+                    line = line.trim();
                     String[] parts = line.split(" - ");
                     int index = Integer.parseInt(parts[0].substring(0, parts[0].indexOf("."))) - 1;
-                    int pontos = Integer.parseInt(parts[1].substring(parts[1].lastIndexOf(":") + 1));
-                    Jogador jogador = new Jogador(parts[0].substring(parts[0].indexOf(".") + 1));
+                    int pontos = Integer.parseInt(parts[1].substring(parts[1].lastIndexOf(":") + 1).trim());
+                    Jogador jogador = new Jogador(parts[0].substring(parts[0].indexOf(".") + 1).trim());
                     jogadores.add(index, jogador);
                 }
             } catch (IOException e) {
@@ -62,7 +64,7 @@ public class Historico {
             }
         }
     }
-
+    
     private void atualizarJogadores() {
         Collections.sort(jogadores, new Comparator<Jogador>() {
             @Override
