@@ -1,9 +1,14 @@
 package campoMinado.GUI;
 import javax.swing.*;
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class MenuGUI {
+
+    private static RecordesGUI recordesGUI;
+
     public static void initGUI() {
         JFrame frame = new JFrame("Minha GUI");
 
@@ -23,16 +28,22 @@ public class MenuGUI {
         jogarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                fecharHistorico();
+                
                 EscolhaModoJogoGUI escolhaModoJogoGUI = new EscolhaModoJogoGUI();
                 escolhaModoJogoGUI.initGUI();
+
             }
         });
 
         creditosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
+                fecharHistorico();
+                
                 CreditosGUI creditosGUI = new CreditosGUI();
                 creditosGUI.initGUI();
+                
             }
         });
 
@@ -40,7 +51,9 @@ public class MenuGUI {
             public void actionPerformed(ActionEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(frame, "Tem certeza que deseja sair?", "Confirmar saída", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
+                    fecharHistorico();
                     System.exit(0);
+                    
                 }
             }
         });
@@ -49,26 +62,9 @@ public class MenuGUI {
         historicoButton.setFont(buttonFont);
         historicoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JFrame historicoFrame = new JFrame("Histórico");
-                JPanel historicoPanel = new JPanel();
-                historicoPanel.setPreferredSize(new Dimension(200, 400)); // Largura reduzida pela metade
-                // Aqui você pode preencher o painel do histórico com os dados necessários
-                JLabel historicoLabel = new JLabel("Histórico de Jogadas");
-                historicoPanel.add(historicoLabel);
-                historicoFrame.add(historicoPanel);
-
-                // Obtenha a localização e a altura do JFrame existente
-                Point location = frame.getLocationOnScreen();
-                int height = frame.getHeight();
-
-                // Defina a posição x e y do novo JFrame ao lado do JFrame existente
-                int newX = location.x + frame.getWidth();
-                int newY = location.y;
-
-                // Defina a posição do novo JFrame e exiba-o
-                historicoFrame.setLocation(newX, newY);
-                historicoFrame.pack();
-                historicoFrame.setVisible(true);
+                if(fecharHistorico()){
+                    recordesGUI = new RecordesGUI(frame);
+                };
             }
         });
 
@@ -82,6 +78,15 @@ public class MenuGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+    private static boolean fecharHistorico(){
+        if (recordesGUI != null) {
+            recordesGUI.closeFrame();
+            recordesGUI = null;
+            return false; // retorna falso para não criar um historico novo
+        }else{
+            return true; // retorna true para criar um novo historico
+        }
     }
 
     public static void main(String[] args) {

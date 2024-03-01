@@ -25,7 +25,7 @@ public class TabuleiroMaluco extends Tabuleiro{
 	}
 
     protected void iniciarCelulas() {
-		super.iniciarCelulas(); // inicializa com conf. padrão
+		super.iniciarMatriz(); // inicializa com conf. padrão
         iniciarCelulasMalucas(); // inicializa com as malucas
 	}
 

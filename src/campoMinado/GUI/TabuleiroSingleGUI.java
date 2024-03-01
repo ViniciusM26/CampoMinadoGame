@@ -160,7 +160,6 @@ public class TabuleiroSingleGUI {
     private void atualizarPontuacao(Jogador jogador) {
         pontuacaoLabel.setText("Pontuação de "+jogador.getNome()+": " + jogador.getPontos());
     }
-
     private void perderJogo(){
         // guarda o historico do jogador
         Historico historico = new Historico();

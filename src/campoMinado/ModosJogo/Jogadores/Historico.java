@@ -57,6 +57,7 @@ public class Historico {
                     int index = Integer.parseInt(parts[0].substring(0, parts[0].indexOf("."))) - 1;
                     int pontos = Integer.parseInt(parts[1].substring(parts[1].lastIndexOf(":") + 1).trim());
                     Jogador jogador = new Jogador(parts[0].substring(parts[0].indexOf(".") + 1).trim());
+                    jogador.setPontos(pontos);
                     jogadores.add(index, jogador);
                 }
             } catch (IOException e) {

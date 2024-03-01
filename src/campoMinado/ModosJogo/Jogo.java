@@ -57,19 +57,21 @@ public class Jogo implements JogoInterface {
 
     public boolean rodadaPadrao(Jogador jogador,int x,int y){
             
-    // separa a celula normal da maluca
-    CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples(); 
-    
-    if(celulaSimples == null || !(celulaSimples.getClicado())){
-        if((getTabuleiro().selecionar(x, y))){ // verifica se tem bomba e altera a celula
-            jogador.encontrarBomba();// Retira os pontos
-            getTabuleiro().setBombasDisponiveis(getTabuleiro().getBombasDisponiveis()-1);
-        }else{
-            jogador.passarRodada(); // Coloca os pontos
+        if(getRodadas() == 0){//verifica se é o primeiro click
+            getTabuleiro().iniciarBombas(x, y);
         }
-        passarRodada();
-        return true;
-    }
-    return false;// retorna falso para não fazer modificações
+        // separa a celula normal da maluca
+        CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();
+        if(celulaSimples == null || !(celulaSimples.getClicado())){
+            if((getTabuleiro().selecionar(x, y))){ // verifica se tem bomba e altera a celula
+                jogador.encontrarBomba();// Retira os pontos
+                getTabuleiro().setBombasDisponiveis(getTabuleiro().getBombasDisponiveis()-1);
+            }else{
+                jogador.passarRodada(); // Coloca os pontos
+            }
+            passarRodada();
+            return true;
+        }
+        return false;// retorna falso para não fazer modificações
     }
 }
