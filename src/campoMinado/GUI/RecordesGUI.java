@@ -1,7 +1,8 @@
 package campoMinado.GUI;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,10 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class RecordesGUI {
     private JFrame historicoFrame;
@@ -30,14 +27,24 @@ public class RecordesGUI {
         this.newX = location.x + frame.getWidth();
         this.newY = location.y;
         initGUI();
-
     }
 
     private void initGUI() {
         historicoFrame = new JFrame("Histórico");
+        historicoFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        historicoFrame.setLayout(new BorderLayout());
+        historicoFrame.setLocation(newX, newY);
+
         JPanel historicoPanel = new JPanel();
-        historicoPanel.setPreferredSize(new Dimension(200, 400)); // Largura reduzida pela metade
-        // Aqui você pode preencher o painel do histórico com os dados necessários
+        historicoPanel.setBackground(new Color(130, 180, 220)); // Mesma paleta de cores do MenuGUI
+        historicoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        historicoPanel.setLayout(new BoxLayout(historicoPanel, BoxLayout.Y_AXIS));
+
+        JLabel historicoLabel = new JLabel("Histórico de Jogadas");
+        historicoLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        historicoLabel.setForeground(Color.WHITE);
+        historicoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        historicoPanel.add(historicoLabel);
 
         // Lendo e ordenando os dados do arquivo
         List<String> rankings = readRankingsFromFile("ranking.txt");
@@ -51,20 +58,53 @@ public class RecordesGUI {
             }
         });
 
-        // Adicionando apenas os primeiros cinco registros ao painel
-        JLabel historicoLabel = new JLabel("Histórico de Jogadas");
-        historicoPanel.add(historicoLabel);
-        for (int i = 0; i < Math.min(5, rankings.size()); i++) {
-            JLabel rankingLabel = new JLabel(rankings.get(i));
+        // Adicionando registros ao painel
+        for (String ranking : rankings) {
+            JLabel rankingLabel = new JLabel(ranking);
+            rankingLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            rankingLabel.setForeground(Color.WHITE);
+            rankingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
             historicoPanel.add(rankingLabel);
         }
 
-        historicoFrame.add(historicoPanel);
+        JScrollPane scrollPane = new JScrollPane(historicoPanel);
+        historicoFrame.add(scrollPane, BorderLayout.CENTER);
 
-        // Defina a posição do novo JFrame e exiba-o
-        historicoFrame.setLocation(newX, newY);
+        // Botão de fechar
+        JButton fecharButton = createStyledButton("Fechar", new Font("Arial", Font.BOLD, 18));
+        fecharButton.addActionListener(e -> historicoFrame.dispose());
+        fecharButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        historicoFrame.add(fecharButton, BorderLayout.SOUTH);
+
         historicoFrame.pack();
         historicoFrame.setVisible(true);
+    }
+
+    private JButton createStyledButton(String text, Font font) {
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.setBackground(new Color(130, 180, 220)); // Mesma paleta de cores do MenuGUI
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100))); // Mesma borda do MenuGUI
+
+        // Altera o cursor ao passar o mouse sobre o botão
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // Efeito de cor ao passar o mouse sobre o botão
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(new Color(100, 150, 200)); // Azul mais escuro
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(new Color(130, 180, 220)); // Retorna à cor original
+            }
+        });
+
+        return button;
     }
 
     public void closeFrame() {
@@ -82,5 +122,14 @@ public class RecordesGUI {
             e.printStackTrace();
         }
         return rankings;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame dummyFrame = new JFrame(); // Cria um frame temporário para passar para o RecordesGUI
+            dummyFrame.setVisible(true); // Torna o frame temporário visível para que suas dimensões sejam calculadas corretamente
+            RecordesGUI recordesGUI = new RecordesGUI(dummyFrame);
+            recordesGUI.initGUI();
+        });
     }
 }

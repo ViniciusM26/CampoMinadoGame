@@ -7,34 +7,45 @@ import java.awt.event.*;
 public class CreditosGUI {
     public static void initGUI() {
         JFrame frame = new JFrame("Créditos");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
+
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(130, 180, 220)); // Mesma paleta de cores do MenuGUI
 
         JLabel tituloLabel = new JLabel("Desenvolvido por:");
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        tituloLabel.setForeground(Color.WHITE);
         tituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        tituloLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0)); // Espaçamento
 
         JTextArea nomesArea = new JTextArea();
-        nomesArea.setText("Bruno César\nVinicius Moura");
-        nomesArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        nomesArea.setText("Créditos:\n\nBruno César\nVinicius Moura\n\nEste jogo foi desenvolvido como projeto de estudo.\n\nNossos e-mails : bcplf@poli.br e vmo1@poli.br");
+        nomesArea.setFont(new Font("Arial", Font.PLAIN, 18));
         nomesArea.setEditable(false);
         nomesArea.setOpaque(false);
-        nomesArea.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
-        nomesArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nomesArea.setForeground(Color.WHITE);
+        nomesArea.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
+        nomesArea.setLineWrap(true);
+        nomesArea.setWrapStyleWord(true);
 
         JLabel infoLabel = new JLabel("Jogo de Campo Minado");
-        infoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        infoLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        infoLabel.setForeground(Color.WHITE);
         infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        infoLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0)); // Espaçamento
 
-        JButton voltarButton = new JButton("Voltar");
-        voltarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); 
-                MenuGUI menuGUI = new MenuGUI();
-                menuGUI.initGUI();
-            }
+        JButton voltarButton = createStyledButton("Voltar", new Font("Arial", Font.BOLD, 18));
+
+        voltarButton.addActionListener(e -> {
+            frame.dispose();
+            MenuGUI.initGUI();
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setOpaque(false); // Para que o fundo da paleta de cores seja visível
         buttonPanel.add(voltarButton);
 
         panel.add(tituloLabel, BorderLayout.NORTH);
@@ -43,11 +54,34 @@ public class CreditosGUI {
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
         frame.add(panel);
-        frame.setSize(600, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // Para centralizar na tela
-        frame.setCursor(Cursor.getDefaultCursor()); // Desabilita o cursor
         frame.setVisible(true);
+    }
+
+    private static JButton createStyledButton(String text, Font font) {
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.setBackground(new Color(130, 180, 220)); // Mesma paleta de cores do MenuGUI
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100))); // Mesma borda do MenuGUI
+
+        // Altera o cursor ao passar o mouse sobre o botão
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // Efeito de cor ao passar o mouse sobre o botão
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(new Color(100, 150, 200)); // Azul mais escuro
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(new Color(130, 180, 220)); // Retorna à cor original
+            }
+        });
+
+        return button;
     }
 
     public static void main(String[] args) {

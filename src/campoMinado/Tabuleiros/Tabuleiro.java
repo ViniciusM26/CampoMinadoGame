@@ -119,7 +119,6 @@ public class Tabuleiro implements TabuleiroInterface {
 			}
 		}
 	
-	@Override
 	public void clicarBandeira(int x, int y){
 		Celula currentCell = getMatriz()[x][y];
 		//verificação se é bomba
@@ -131,7 +130,6 @@ public class Tabuleiro implements TabuleiroInterface {
 			}
 			currentCell.trocarBandeira();// inverte o estado da bandeira
 		}
-		
 	}
 
 	@Override

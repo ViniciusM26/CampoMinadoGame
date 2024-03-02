@@ -3,8 +3,8 @@ package campoMinado.Celulas.CelulaMaluca;
 import java.util.Random;
 
 public class CelulaMaluca {
-    public CelulaMaluca() {
-        setGrauLoucura(0.8);
+    public CelulaMaluca(double grauDeLoucura) {
+        setGrauLoucura(grauDeLoucura);
     }
 
     private double grauLoucura;

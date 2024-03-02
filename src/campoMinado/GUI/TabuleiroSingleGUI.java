@@ -19,7 +19,8 @@ public class TabuleiroSingleGUI {
 
     public TabuleiroSingleGUI(Jogo jogo,Jogador jogador){
         this.jogo = jogo;
-        this.jogador = jogador; 
+        this.jogador = jogador;
+        initGUI();
     }
 
     public void initGUI() {
@@ -101,6 +102,8 @@ public class TabuleiroSingleGUI {
                                 incrementarBandeiras();
                             }
                         }
+                        System.out.println(jogo.getTabuleiro());
+                        
                     }
                 });
                 

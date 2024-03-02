@@ -1,78 +1,77 @@
 package campoMinado.GUI;
 
 import javax.swing.*;
-
-import campoMinado.ModosJogo.Jogo;
-import campoMinado.ModosJogo.Jogadores.Jogador;
-import campoMinado.ModosJogo.Jogadores.JogadorSingle;
-import campoMinado.Tabuleiros.Tabuleiro;
-import campoMinado.Tabuleiros.TabuleiroDificil;
-import campoMinado.Tabuleiros.TabuleiroFacil;
-import campoMinado.Tabuleiros.TabuleiroMedio;
-
 import java.awt.*;
 import java.awt.event.*;
 
 public class EscolhaModoJogoGUI {
     public static void initGUI() {
-        JFrame frame = new JFrame("Minha GUI");
-
-        JPanel panel = new JPanel();
-
-        panel.setLayout(new GridLayout(3, 1)); // Reduzindo para 3 para os botões principais
-        panel.setSize(600, 600);
-
-        JButton malucoButton = new JButton("Maluco");
-        JButton normalButton = new JButton("Normal");
-
-        Font buttonFont = new Font(malucoButton.getFont().getName(), Font.PLAIN, 20);
-        malucoButton.setFont(buttonFont);
-        normalButton.setFont(buttonFont);
-
-        malucoButton.addActionListener(new ActionListener() { //escolha do modo maluco
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(true);
-                DificuldadeGUI.initGUI();
-            }
-        });
-
-        normalButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(false);
-                dificuldadeGUI.initGUI();
-            }
-        });
-
-        panel.add(normalButton);
-        panel.add(malucoButton);
-
-        JPanel bottomPanel = new JPanel(); // Novo painel para o botão "Voltar"
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Centralizando o botão "Voltar"
-        
-        JButton voltarButton = new JButton("Voltar"); // Novo botão de voltar
-        voltarButton.setPreferredSize(new Dimension(100, 50)); // Definindo tamanho menor para o botão "Voltar"
-        voltarButton.setFont(new Font(voltarButton.getFont().getName(), Font.PLAIN, 15)); // Ajustando o tamanho da fonte
-        voltarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // Fecha a janela atual
-                MenuGUI menuGUI = new MenuGUI();
-                menuGUI.initGUI();
-            }
-        });
-
-        bottomPanel.add(voltarButton); // Adiciona o botão "Voltar" ao painel inferior
-
-        frame.add(panel, BorderLayout.CENTER); // Adiciona o painel principal ao centro
-        frame.add(bottomPanel, BorderLayout.SOUTH); // Adiciona o painel inferior na parte inferior
-        frame.setSize(400, 400);
+        JFrame frame = new JFrame("Escolha o Modo de Jogo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
+
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        Font buttonFont = new Font("Arial", Font.BOLD, 18);
+
+        JButton malucoButton = createStyledButton("Modo Maluco", buttonFont);
+        JButton normalButton = createStyledButton("Modo Normal", buttonFont);
+        JButton voltarButton = createStyledButton("Voltar", buttonFont);
+
+        malucoButton.addActionListener(e -> {
+            frame.dispose();
+            DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(true);
+            dificuldadeGUI.initGUI();
+        });
+
+        normalButton.addActionListener(e -> {
+            frame.dispose();
+            DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(false);
+            dificuldadeGUI.initGUI();
+        });
+
+        voltarButton.addActionListener(e -> {
+            frame.dispose();
+            MenuGUI menuGUI = new MenuGUI();
+            menuGUI.initGUI();
+        });
+
+        menuPanel.add(normalButton);
+        menuPanel.add(malucoButton);
+        menuPanel.add(voltarButton);
+
+        frame.add(menuPanel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        initGUI();
+    private static JButton createStyledButton(String text, Font font) {
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.setBackground(new Color(130, 180, 220)); // Azul claro
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
+
+        // Altera o cursor ao passar o mouse sobre o botão
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // Efeito de cor ao passar o mouse sobre o botão
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(new Color(100, 150, 200)); // Azul mais escuro
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(new Color(130, 180, 220)); // Retorna à cor original
+            }
+        });
+
+        return button;
     }
 }

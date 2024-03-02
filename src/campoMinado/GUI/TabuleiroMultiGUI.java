@@ -23,6 +23,7 @@ public class TabuleiroMultiGUI {
         this.jogo = jogo;
         this.jogador1 = jogador1;
         this.jogador2 = jogador2; 
+        initGUI();
     }
 
     public void initGUI() {
@@ -83,6 +84,7 @@ public class TabuleiroMultiGUI {
                         if (SwingUtilities.isRightMouseButton(e)) { // Verifica se foi um clique com o botão direito
                             JButton buttonClicked = (JButton) e.getSource(); // Obtém o botão clicado
                             jogo.alterarBandeira(row, col);
+                            System.out.println(jogo.getTabuleiro());
                             if (buttonClicked.isEnabled()) {
                                 //coloca a bandeira
                                 if(decrementarBandeiras()){
@@ -112,6 +114,7 @@ public class TabuleiroMultiGUI {
                                 incrementarBandeiras();
                             }
                         }
+                        System.out.println(jogo.getTabuleiro());
                     }
                 });
                 gamePanel.add(buttons[i][j]);
