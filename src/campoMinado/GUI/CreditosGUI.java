@@ -22,7 +22,8 @@ public class CreditosGUI {
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0)); // Espaçamento
 
         JTextArea nomesArea = new JTextArea();
-        nomesArea.setText("Créditos:\n\nBruno César\nVinicius Moura\n\nEste jogo foi desenvolvido como projeto de estudo.\n\nNossos e-mails : bcplf@poli.br e vmo1@poli.br");
+        nomesArea.setText("\n\nBruno César Protasio de Lima Filho\nVinícius Moura de Oliveira\n\nE-mails para contato:"
+        		+ "\nbcplf@poli.br\nvmo1@poli.br\n\nEsse projeto foi desenvolvido como forma de estudo da disciplina de LPOO.");
         nomesArea.setFont(new Font("Arial", Font.PLAIN, 18));
         nomesArea.setEditable(false);
         nomesArea.setOpaque(false);

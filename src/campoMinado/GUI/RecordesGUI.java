@@ -40,7 +40,7 @@ public class RecordesGUI {
         historicoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         historicoPanel.setLayout(new BoxLayout(historicoPanel, BoxLayout.Y_AXIS));
 
-        JLabel historicoLabel = new JLabel("Histórico de Jogadas");
+        JLabel historicoLabel = new JLabel("Histórico de Jogadas:");
         historicoLabel.setFont(new Font("Arial", Font.BOLD, 20));
         historicoLabel.setForeground(Color.WHITE);
         historicoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

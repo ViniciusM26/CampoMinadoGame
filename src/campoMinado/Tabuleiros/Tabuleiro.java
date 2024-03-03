@@ -23,7 +23,7 @@ public class Tabuleiro implements TabuleiroInterface {
 				setTamanho(5);
 				break;
 			case 2:
-				setBombas(16);
+				setBombas(14);
 				setTamanho(8);
 			case 3:
 				setTamanho(10);

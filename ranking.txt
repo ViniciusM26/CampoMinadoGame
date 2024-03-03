@@ -1,3 +1,4 @@
-1. Jogador 1 - Pontuação: 0
-2. Jogador 2 - Pontuação: 0
-3. Jogador 3 - Pontuação: 0
+1. Marina - Pontuação: 14
+2. Lucas - Pontuação: 9
+3. Vinicius - Pontuação: 6
+4. Bob - Pontuação: 1
