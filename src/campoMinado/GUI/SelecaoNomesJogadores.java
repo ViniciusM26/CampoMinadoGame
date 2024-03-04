@@ -59,7 +59,6 @@ public class SelecaoNomesJogadores {
                 JogadorMultiplayer jogador1 = new JogadorMultiplayer(nomeJogador1);
                 JogadorMultiplayer jogador2 = new JogadorMultiplayer(nomeJogador2);
                 TabuleiroMultiGUI tabuleiroMultiGUI = new TabuleiroMultiGUI(jogo, jogador1, jogador2);
-                tabuleiroMultiGUI.initGUI();
             } else {
                 // Se um dos nomes estiver vazio, mostrar mensagem de erro e permitir tentar novamente
                 int retryOption = JOptionPane.showConfirmDialog(frame, "Nomes dos jogadores não podem estar vazios! Deseja tentar novamente?", "Erro", JOptionPane.YES_NO_OPTION);

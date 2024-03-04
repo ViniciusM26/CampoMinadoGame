@@ -25,9 +25,11 @@ public class Tabuleiro implements TabuleiroInterface {
 			case 2:
 				setBombas(14);
 				setTamanho(8);
+				break;
 			case 3:
 				setTamanho(10);
 				setBombas(25);
+				break;
 		}
 
 	    setMatriz(new Celula[getTamanho()][getTamanho()]);
@@ -158,7 +160,7 @@ public class Tabuleiro implements TabuleiroInterface {
 			int c = rand.nextInt(tamanho); // random em y
 	
 			// Verifica se a célula na posição não é bomba
-			if(!(l == x && c == y)){
+			if(!(l == x && c == y) && !(matriz [l][c].getCelulaSimples() instanceof Bomba)){
 				if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba)) {
 					matriz[l][c].setCelulaSimples(new Bomba()); // coloca uma bomba no local
 				}
