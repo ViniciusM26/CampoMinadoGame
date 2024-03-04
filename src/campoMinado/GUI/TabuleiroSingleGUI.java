@@ -229,7 +229,7 @@ public class TabuleiroSingleGUI {
 
     private void clicarBomba(int row, int col){
         JButton currentButton = buttons[row][col];
-        currentButton.setBackground(Color.red); // Muda a cor do botão clicado
+        currentButton.setIcon(new BombaImagemIcon()); // Mostra a imagem da bomba
         currentButton.setEnabled(false);// desabilira o click
         currentButton.setText("°");
         currentButton.repaint();

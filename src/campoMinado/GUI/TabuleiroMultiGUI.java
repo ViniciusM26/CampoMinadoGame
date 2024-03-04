@@ -228,7 +228,7 @@ public class TabuleiroMultiGUI {
         JButton currentButton = buttons[x][y];
         currentButton.setText("°");
         currentButton.setEnabled(false);
-        currentButton.setBackground(Color.RED);
+        currentButton.setIcon(new BombaImagemIcon());
     
     }
     
