@@ -63,7 +63,7 @@ public class RecordesGUI {
             JLabel rankingLabel = new JLabel(ranking);
             rankingLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             rankingLabel.setForeground(Color.WHITE);
-            rankingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            rankingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             historicoPanel.add(rankingLabel);
         }
 
