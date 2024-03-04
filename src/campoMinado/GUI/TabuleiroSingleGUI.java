@@ -79,7 +79,7 @@ public class TabuleiroSingleGUI {
                             if (buttonClicked.isEnabled()) {
                                 if (decrementarBandeiras()) {
                                     buttonClicked.setEnabled(false);
-                                    buttonClicked.setBackground(Color.BLACK);
+                                    buttonClicked.setIcon(new BandeiraImagemIcon());
                                     if (jogo.getTabuleiro().getBombasDisponiveis() == 0) {
                                         ganharJogo();
                                         Timer timer = new Timer(2000, new ActionListener() {
@@ -98,7 +98,7 @@ public class TabuleiroSingleGUI {
                                 }
                             } else {
                                 buttonClicked.setEnabled(true);
-                                buttonClicked.setBackground(null);
+                                buttonClicked.setIcon(null);
                                 incrementarBandeiras();
                             }
                         }

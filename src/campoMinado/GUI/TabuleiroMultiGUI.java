@@ -89,7 +89,7 @@ public class TabuleiroMultiGUI {
                                 //coloca a bandeira
                                 if(decrementarBandeiras()){
                                     buttonClicked.setEnabled(false);
-                                    buttonClicked.setBackground(Color.BLACK);
+                                    buttonClicked.setIcon(new BandeiraImagemIcon());
                                     if(jogo.getTabuleiro().getBombasDisponiveis() == 0){
                                         acabarJogo();
                                         Timer timer = new Timer(2000, new ActionListener() {
@@ -110,7 +110,7 @@ public class TabuleiroMultiGUI {
                             }
                             } else {
                                 buttonClicked.setEnabled(true);
-                                buttonClicked.setBackground(null);
+                                buttonClicked.setIcon(null);
                                 incrementarBandeiras();
                             }
                         }
