@@ -37,14 +37,6 @@ public class Historico {
         atualizarArquivoRanking();
     }
 
-    public void imprimir() {
-        System.out.println("Histórico de Jogadores:");
-        for (int i = 0; i < jogadores.size(); i++) {
-            System.out.printf("%d. %s", i + 1, jogadores.get(i).getNome());
-            System.out.printf(" - Pontuação: %d\n", jogadores.get(i).getPontos());
-        }
-    }
-
     private void carregarJogadoresDoArquivo() {
         File rankingFile = new File("ranking.txt");
         if (rankingFile.exists()) {
