@@ -128,6 +128,7 @@ public class TabuleiroMultiGUI {
         placarPanel.add(bandeirasLabel);
 
         pontuacao1Label = new JLabel("Pontuação de "+jogador1.getNome()+": 0");
+        pontuacao1Label.setForeground(Color.red);
         pontuacao2Label = new JLabel("Pontuação de "+jogador2.getNome()+": 0");
         placarPanel.add(pontuacao1Label);
         placarPanel.add(pontuacao2Label);
@@ -191,12 +192,16 @@ public class TabuleiroMultiGUI {
 
     private void atualizarPontuacao(Jogador jogador) {
         Jogador jogadorDaRodada;
-        if(jogo.getRodadas() % 2 == 0){
+        if(jogo.getRodadas() % 2 == 1){
             jogadorDaRodada = jogador1;
             pontuacao1Label.setText("Pontuação de "+ jogadorDaRodada.getNome() + ": " + jogador.getPontos());
+            pontuacao2Label.setForeground(Color.red);
+            pontuacao1Label.setForeground(Color.black);
         }else{
             jogadorDaRodada = jogador2;
             pontuacao2Label.setText("Pontuação de "+ jogadorDaRodada.getNome() + ": " + jogador.getPontos());
+            pontuacao2Label.setForeground(Color.black);
+            pontuacao1Label.setForeground(Color.red);
         }
     }
 
