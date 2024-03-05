@@ -23,7 +23,7 @@ public class TabuleiroSingleGUI {
         initGUI();
     }
 
-    public void initGUI() {
+    private void initGUI() {
 
         int size = jogo.getTabuleiro().getTamanho();
         
@@ -124,7 +124,7 @@ public class TabuleiroSingleGUI {
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                MenuGUI.initGUI();
+                MenuGUI menuGUi = new MenuGUI();
             }
         });
 

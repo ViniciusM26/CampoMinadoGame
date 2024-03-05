@@ -26,7 +26,6 @@ public class TelaEmpateGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Fecha a janela atual
                 MenuGUI menuGUI = new MenuGUI();
-                menuGUI.initGUI();
             }
         });
         add(voltarButton, BorderLayout.SOUTH);

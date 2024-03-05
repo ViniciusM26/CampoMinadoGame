@@ -21,7 +21,7 @@ public class SelecaoNomesJogadores {
         this.jogo = jogo;
         initGUI();
     }
-    public static void initGUI() {
+    private static void initGUI() {
         JFrame frame = new JFrame("Seleção dos nomes dos jogadores");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 200); // Ajustando a altura para torná-la mais compacta
@@ -65,11 +65,11 @@ public class SelecaoNomesJogadores {
                 if (retryOption == JOptionPane.YES_OPTION) {
                     initGUI(); // Tente novamente inserir os nomes
                 } else {
-                    MenuGUI.initGUI(); // Volte para o menu principal se o usuário cancelar
+                	MenuGUI menuGUi = new MenuGUI(); // Volte para o menu principal se o usuário cancelar
                 }
             }
         } else {
-            MenuGUI.initGUI(); // Se o usuário cancelar, volte para o menu principal
+        	MenuGUI menuGUi = new MenuGUI(); // Se o usuário cancelar, volte para o menu principal
     }
 }
 

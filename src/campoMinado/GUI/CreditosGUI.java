@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreditosGUI {
-    public static void initGUI() {
+	public CreditosGUI() {
+		initGUI();
+	}
+    private static void initGUI() {
         JFrame frame = new JFrame("Créditos");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);
@@ -42,7 +45,7 @@ public class CreditosGUI {
 
         voltarButton.addActionListener(e -> {
             frame.dispose();
-            MenuGUI.initGUI();
+            MenuGUI menuGUI = new MenuGUI();
         });
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));

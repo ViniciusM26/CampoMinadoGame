@@ -7,8 +7,11 @@ import java.awt.event.*;
 public class MenuGUI {
 
     private static RecordesGUI recordesGUI;
+    public MenuGUI() {
+    	initGUI();
+    }
 
-    public static void initGUI() {
+    private static void initGUI() {
         JFrame frame = new JFrame("Campo Minado");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -30,14 +33,12 @@ public class MenuGUI {
             frame.dispose();
             fecharHistorico();
             EscolhaModoJogoGUI escolhaModoJogoGUI = new EscolhaModoJogoGUI();
-            escolhaModoJogoGUI.initGUI();
         });
 
         creditosButton.addActionListener(e -> {
             frame.dispose();
             fecharHistorico();
             CreditosGUI creditosGUI = new CreditosGUI();
-            creditosGUI.initGUI();
         });
 
         sairButton.addActionListener(e -> {

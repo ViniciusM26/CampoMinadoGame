@@ -14,9 +14,10 @@ public class SelecaoModoJogador {
 
     public SelecaoModoJogador(Jogo jogo) {
         SelecaoModoJogador.jogo = jogo;
+        initGUI();
     }
 
-    public static void initGUI() {
+    private static void initGUI() {
         JFrame frame = new JFrame("Seleção do Modo de Jogador");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -52,7 +53,7 @@ public class SelecaoModoJogador {
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                MenuGUI.initGUI();
+                MenuGUI menuGUI = new MenuGUI();
             }
         });
     

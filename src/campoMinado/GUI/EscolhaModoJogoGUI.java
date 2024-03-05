@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class EscolhaModoJogoGUI {
-    public static void initGUI() {
+	public EscolhaModoJogoGUI() {
+		initGUI();
+	}
+    private static void initGUI() {
         JFrame frame = new JFrame("Escolha o Modo de Jogo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -25,19 +28,16 @@ public class EscolhaModoJogoGUI {
         malucoButton.addActionListener(e -> {
             frame.dispose();
             DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(true);
-            dificuldadeGUI.initGUI();
         });
 
         normalButton.addActionListener(e -> {
             frame.dispose();
             DificuldadeGUI dificuldadeGUI = new DificuldadeGUI(false);
-            dificuldadeGUI.initGUI();
         });
 
         voltarButton.addActionListener(e -> {
             frame.dispose();
             MenuGUI menuGUI = new MenuGUI();
-            menuGUI.initGUI();
         });
 
         menuPanel.add(normalButton);

@@ -26,7 +26,7 @@ public class TabuleiroMultiGUI {
         initGUI();
     }
 
-    public void initGUI() {
+    private void initGUI() {
 
         int size = jogo.getTabuleiro().getTamanho();// pega do tabuleiro o tamanho
         
@@ -137,7 +137,7 @@ public class TabuleiroMultiGUI {
         voltarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                MenuGUI.initGUI();
+                MenuGUI menuGUi = new MenuGUI();
             }
         });
 

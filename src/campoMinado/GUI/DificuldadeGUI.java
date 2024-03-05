@@ -15,9 +15,10 @@ public class DificuldadeGUI {
 
     public DificuldadeGUI(boolean modoJogo) {
         DificuldadeGUI.modoJogo = modoJogo;
+        initGUI();
     }
 
-    public static void initGUI() {
+    private static void initGUI() {
         JFrame frame = new JFrame("Escolha a Dificuldade");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -39,26 +40,23 @@ public class DificuldadeGUI {
             frame.dispose();
             Jogo jogo = criarJogo(modoJogo, 1);
             SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(jogo);
-            selecaoModoJogador.initGUI();
         });
 
         mediumButton.addActionListener(e -> {
             frame.dispose();
             Jogo jogo = criarJogo(modoJogo, 2);
             SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(jogo);
-            selecaoModoJogador.initGUI();
         });
 
         difficultButton.addActionListener(e -> {
             frame.dispose();
             Jogo jogo = criarJogo(modoJogo, 3);
             SelecaoModoJogador selecaoModoJogador = new SelecaoModoJogador(jogo);
-            selecaoModoJogador.initGUI();
         });
 
         backButton.addActionListener(e -> {
             frame.dispose();
-            MenuGUI.initGUI();
+            MenuGUI menuGUI = new MenuGUI();
         });
 
         menuPanel.add(easyButton);
