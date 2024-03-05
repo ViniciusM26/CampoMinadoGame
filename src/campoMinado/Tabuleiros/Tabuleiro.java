@@ -13,26 +13,38 @@ public class Tabuleiro implements TabuleiroInterface {
 	private Celula[][] matriz;
 	private int tamanho;
 	private int bombas;
+	private int bombasDisponiveis;
 
-	public Tabuleiro(int tamanho, int bombas) {
+	public Tabuleiro(int modo) {
 		
-		this.setTamanho(tamanho);
-		if(!(bombas > tamanho * tamanho))
-			this.setBombas(bombas);
-		else{ 
-			setBombas((tamanho*tamanho)-1);
-	    }
-		setMatriz(new Celula[getTamanho()][getTamanho()]);
+		switch(modo){
+			case 1:
+				setBombas(4);
+				setTamanho(5);
+				break;
+			case 2:
+				setBombas(14);
+				setTamanho(8);
+				break;
+			case 3:
+				setTamanho(10);
+				setBombas(25);
+				break;
+		}
+
+	    setMatriz(new Celula[getTamanho()][getTamanho()]);
 		iniciarMatriz();
 
 	}
 
-	@Override
-    public void inicializar(int tamanho, int bombas) {
-        this.setTamanho(tamanho);
-        this.setBombas(bombas);
-        this.setMatriz(new Celula[getTamanho()][getTamanho()]);
-    }
+
+	public int getBombasDisponiveis() {
+		return bombasDisponiveis;
+	}
+
+	public void setBombasDisponiveis(int bombasDisponiveis) {
+		this.bombasDisponiveis = bombasDisponiveis;
+	}
 
 	private void setMatriz(Celula [][] matriz){
 		this.matriz = matriz;
@@ -43,19 +55,20 @@ public class Tabuleiro implements TabuleiroInterface {
 	}
 
 	public int getTamanho(){
-	return this.tamanho;
+		return this.tamanho;
 	}
 
 	private void setTamanho(int p1){
-	this.tamanho = p1;
+		this.tamanho = p1;
 	}
 
 	public int getBombas(){
-	return this.bombas;
+		return this.bombas;
 	}
 
 	private void setBombas(int p1){
-	this.bombas = p1;
+		this.bombas = p1;
+		setBombasDisponiveis(p1);
 	}
 
 	public int contagemBombas(int x, int y){
@@ -99,7 +112,7 @@ public class Tabuleiro implements TabuleiroInterface {
 						// seleção de todas as bombas ao redor
 						for (int i = -1; i < 2; i ++){ 
 							for(int j = -1; j < 2; j++){
-								selecionar(x + i, y + j, 0);
+								selecionar(x + i, y + j);
 							}
 						}
 					}
@@ -108,30 +121,29 @@ public class Tabuleiro implements TabuleiroInterface {
 			}
 		}
 	
-	@Override
 	public void clicarBandeira(int x, int y){
-		getMatriz()[x][y].trocarBandeira();
+		Celula currentCell = getMatriz()[x][y];
+		//verificação se é bomba
+		if(currentCell.getCelulaSimples() != null && !(currentCell.getCelulaSimples().getClicado())){
+			if(currentCell.isBandeira()){
+				setBombasDisponiveis(getBombasDisponiveis()+1);//tirando bandeira
+			}else{
+				setBombasDisponiveis(getBombasDisponiveis()-1);//colocando bandeira
+			}
+			currentCell.trocarBandeira();// inverte o estado da bandeira
+		}
 	}
 
 	@Override
-	public boolean selecionar(int x, int y, int z) {
+	public boolean selecionar(int x, int y) {
 		if (x >= 0 && y >= 0 && y < getTamanho() && x < getTamanho()){
-			if( getMatriz()[x][y].getCelulaSimples() == null || !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
-				
-			if (z == 0){
-				if (getMatriz()[x][y].isBandeira()) { // verifica se a célula tem bandeira
-					return false; // se tiver bandeira, ignora a seleção
-				}
+			if( getMatriz()[x][y].getCelulaSimples() == null|| !(getMatriz()[x][y].getCelulaSimples().getClicado()))// verifica se a celula ja foi clicada
 				return clicarCelula(x, y);
 			}
-			else
-				clicarBandeira(x, y); // inverte o boolean da bandeira
-
-		}
 		return false; // retorna falso por não ter bomba
 	}	
 
-	private void iniciarMatriz(){
+	protected void iniciarMatriz(){
 		for(int i = 0; i < getTamanho();i++){
 			for(int j = 0; j < getTamanho(); j ++ ){
 				matriz[i][j] = new Celula();
@@ -139,7 +151,7 @@ public class Tabuleiro implements TabuleiroInterface {
 		}
 	}
 
-	public void iniciarBombas(int x, int y){// recebe o primeiro click
+	public void iniciarBombas(int x, int y){
 		Random rand = new Random(); // cria um random
 
 		// sorteio de bombas
@@ -147,17 +159,15 @@ public class Tabuleiro implements TabuleiroInterface {
 			int l = rand.nextInt(tamanho); // random em x
 			int c = rand.nextInt(tamanho); // random em y
 	
-			// Verifica se a célula na posição não é bomba ou se colocará bomba no primeiro clicl
-			if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba) || !(l == x && y == c) ) { // pensar sobre modificação de posições para o jogo maluco
-				matriz[l][c].setCelulaSimples(new Bomba()); // coloca uma bomba no local
+			// Verifica se a célula na posição não é bomba
+			if(!(l == x && c == y) && !(matriz [l][c].getCelulaSimples() instanceof Bomba)){
+				if (matriz[l][c].getCelulaSimples() == null || !(matriz [l][c].getCelulaSimples() instanceof Bomba)) {
+					matriz[l][c].setCelulaSimples(new Bomba()); // coloca uma bomba no local
+				}
 			} else {
 				i--;
 			}
 		}	
-	}
-
-	protected void iniciarCelulas(int x, int y) {
-		iniciarMatriz();
 	}
 
 	@Override

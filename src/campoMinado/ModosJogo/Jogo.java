@@ -1,13 +1,11 @@
 package campoMinado.ModosJogo;
 
-import java.util.Scanner;
-import java.util.InputMismatchException;
-
 import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
+import campoMinado.Interfaces.JogoInterface;
 import campoMinado.ModosJogo.Jogadores.Jogador;
 import campoMinado.Tabuleiros.Tabuleiro;
 
-public abstract class Jogo {
+public class Jogo implements JogoInterface {
     private boolean funcionamentoJogo;
 	private Tabuleiro tabuleiro;
 	private int rodadas;
@@ -16,7 +14,9 @@ public abstract class Jogo {
         setTabuleiro(tabuleiro);
     }
 
-    public abstract void Jogar();
+    public void alterarBandeira(int row, int col) {
+		getTabuleiro().clicarBandeira(row, col);
+	}
 
     public int getRodadas() {
 		return rodadas;
@@ -55,65 +55,23 @@ public abstract class Jogo {
 		setFuncionamentoJogo(false);
 	}
 
-    protected void rodadaPadrao(Jogador jogador){
-        
-        Scanner scanner = new Scanner(System.in);// inicializa o scanner
-
-        System.out.println(getTabuleiro());//impressão do tabueleiro
-        
-        //entrada de dados
-        int x,y,modo;
-        
-        try {
-            System.out.println(jogador+"\n0 -> clicar celula/ 1 -> alterar bandeira/ 2 -> acabar o jogo");  // instruções para o console
-            modo = scanner.nextInt(); // terceiro input
-
-            // tratamento da entrada para o valor ser valido
-            if(modo < 1) 
-                modo = 0;
-            else if (modo > 1){
-                pararJogo();
-                scanner.close();
-                return;
-            }else
-                modo = 1;
+    public boolean rodadaPadrao(Jogador jogador,int x,int y){
             
-            System.out.print("\nDigite a linha: "); // instruções para o console
-
-            x = scanner.nextInt(); // primeiro input
-            if (x < 0 || x > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                throw new InputMismatchException("valor inválido");
+        if(getRodadas() == 0){//verifica se é o primeiro click
+            getTabuleiro().iniciarBombas(x, y);
+        }
+        // separa a celula normal da maluca
+        CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();
+        if(celulaSimples == null || !(celulaSimples.getClicado())){
+            if((getTabuleiro().selecionar(x, y))){ // verifica se tem bomba e altera a celula
+                jogador.encontrarBomba();// Retira os pontos
+                getTabuleiro().setBombasDisponiveis(getTabuleiro().getBombasDisponiveis()-1);
+            }else{
+                jogador.passarRodada(); // Coloca os pontos
             }
-            System.out.print("Digite a coluna: ");  // instruções para o console
-
-            y = scanner.nextInt(); // Segundo input
-            if (y < 0 || y > getTabuleiro().getTamanho()){ // verifica se entrada é valida
-                throw new InputMismatchException("valor inválido");
-            }
-            
-            if (getRodadas() == (getTabuleiro().getTamanho() ^ 2)){ // finaliza todos os espaços do tabuleiro
-                pararJogo();
-            }
-            if(getRodadas()==0)
-                getTabuleiro().iniciarBombas(x,y);
-            CelulaAbstrata celulaSimples = getTabuleiro().getMatriz()[x][y].getCelulaSimples();  // separa a celula normal da maluca
-            
-            if(celulaSimples == null || !(celulaSimples.getClicado())){
-                if((getTabuleiro().selecionar(x, y, modo))){ // verifica se tem bomba e altera a celula
-                    System.out.println(jogador + jogador.encontrarBomba());// imprime e retira os pontos
-                }else{
-                    System.out.println(jogador + jogador.passarRodada()); // imprime e coloca os pontos
-                }
-                passarRodada();
-            }
-            else 
-                System.out.println("celula ja selecionada");
-            
-
-        } catch (InputMismatchException e ) {
-            System.out.println("Erro: Certifique-se de digitar um valor inteiro válido.");
-            scanner.nextLine();
-            return;
-        } 
-    } 
+            passarRodada();
+            return true;
+        }
+        return false;// retorna falso para não fazer modificações
+    }
 }

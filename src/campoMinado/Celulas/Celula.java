@@ -6,7 +6,7 @@ import campoMinado.Celulas.CelulaSimples.CelulaAbstrata;
 
 public class Celula {
     public Celula() {
-
+        setBandeira(false);
     }
     
     private CelulaAbstrata celulaSimples;
@@ -39,12 +39,10 @@ public class Celula {
     }
     
     public boolean trocarBandeira(){
-        if (!(isBandeira()))// verifica se está colocando ou tirando bandeira
+        if (!(isBandeira())){// verifica se está colocando ou tirando bandeira
             if(!(getCelulaMaluca() == null)){// verifica se a celula é maluca  
-                System.out.println("essa celula é maluca");
                 if(getCelulaMaluca().clicarCelula()){ // verifica se vai alterar seu estado
                     //alteração do estado
-                    System.out.println("A celula mudou de estado");
                     if(getCelulaSimples() == null){ 
                         setCelulaSimples(new Bomba());
                     }else{
@@ -54,7 +52,9 @@ public class Celula {
                     return true;// retorna true para a atualização
                 }
             }
-            inverterBandeira();
-            return false;// retorna falso para a atualização
+            
+        }
+        inverterBandeira();
+        return false;// retorna falso para a atualização
     }
 }

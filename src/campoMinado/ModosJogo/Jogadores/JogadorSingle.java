@@ -12,7 +12,7 @@ public class JogadorSingle extends Jogador {
     }
 
     public String passarRodada(){
-        super.passarRodada();
+        setPontos(getPontos()+1);
         return "você não encontrou bomba!";
     }
     
